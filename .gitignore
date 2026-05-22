@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Sentinel_Grid_V2 project-specific ignores
+data/sentinel_logs.json
+data/cyber_alerts.json
+data/secure_codes.local.json
+*.env
