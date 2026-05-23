@@ -1,2 +1,0 @@
-gitignore
-Flask==3.0.3
