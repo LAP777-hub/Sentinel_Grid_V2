@@ -336,3 +336,52 @@ function renderBankData() {
         );
     }
 }
+
+// ======================================================
+// SECTION 4: HACKER CONSOLE AUTHENTICATION & NAVIGATION
+// ======================================================
+
+function selectActor(code) {
+    document.querySelectorAll('.hack-actor-btn').forEach(b => b.classList.remove('selected'));
+
+    const actorBtn = document.getElementById('actor-' + code);
+    if (actorBtn) actorBtn.classList.add('selected');
+
+    currentHacker = code;
+}
+
+function hackLogin() {
+    if (!currentHacker) {
+        const hackErr = document.getElementById('hackErr');
+        if (hackErr) hackErr.textContent = 'Select actor';
+        return;
+    }
+
+    const hackLoginWrap = document.getElementById('hackLoginWrap');
+    const hackDash = document.getElementById('hackDash');
+    const hackWhoLabel = document.getElementById('hackWhoLabel');
+    const hackTopStatus = document.getElementById('hackTopStatus');
+
+    if (hackLoginWrap) hackLoginWrap.style.display = 'none';
+    if (hackDash) hackDash.classList.add('visible');
+    if (hackWhoLabel) hackWhoLabel.textContent = currentHacker;
+    if (hackTopStatus) hackTopStatus.textContent = 'LIVE';
+
+    updateSGUI();
+
+    logSecurity(`⚠️ Threat actor ${currentHacker} entered hacker console`);
+}
+
+function hackLogout() {
+    location.reload();
+}
+
+function hackTab(name, btn) {
+    document.querySelectorAll('.hack-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.hack-view').forEach(v => v.classList.remove('active'));
+
+    if (btn) btn.classList.add('active');
+
+    const view = document.getElementById('hv-' + name);
+    if (view) view.classList.add('active');
+}
