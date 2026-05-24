@@ -54,3 +54,19 @@
       <div class="bank-secure-note">All sessions are monitored and recorded</div>
     </div>
   </div>
+
+    <div class="bank-dash" id="bankDash">
+    <div class="bank-user-bar">
+      <div class="bank-user-info">Logged in as <strong id="bankWho">—</strong> | Branch: Head Office | <span id="bankTime"></span></div>
+      <button class="bank-logout" onclick="bankLogout()">Log Out</button>
+    </div>
+    <div class="bank-nav">
+      <button class="bank-nav-btn active" onclick="bankTab('overview',this)">Dashboard</button>
+      <button class="bank-nav-btn" onclick="bankTab('accounts',this)">Accounts</button>
+      <button class="bank-nav-btn" onclick="bankTab('cards',this)">Credit Cards</button>
+      <button class="bank-nav-btn" onclick="bankTab('loans',this)">Loans</button>
+      <button class="bank-nav-btn" onclick="bankTab('security',this)">Security</button>
+    </div>
+    <div class="bank-content">
+
+      
