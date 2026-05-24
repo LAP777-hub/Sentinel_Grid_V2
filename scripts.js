@@ -1,8 +1,4 @@
-// ======================================================
-// SECTION 1: DATA ARRAYS, HELPERS & GLOBAL STATE
-// ======================================================
 
-// DATA ARRAYS
 const SA_NAMES = [
     'Sipho Dlamini',
     'Nomsa Khumalo',
@@ -25,7 +21,7 @@ const LOAN_TYPES = [
     'Business Loan'
 ];
 
-// HELPER FUNCTIONS
+
 function rand(a, b) {
     return Math.floor(Math.random() * (b - a + 1)) + a;
 }
@@ -37,7 +33,7 @@ function fmtRand(n) {
     });
 }
 
-// REAL DATA SIMULATION
+
 const CARDS = SA_NAMES.map(n => ({
     name: n,
     num: '5' + rand(1000, 9999) + ' ' + rand(1000, 9999) + ' ' + rand(1000, 9999) + ' ' + rand(1000, 9999),
@@ -54,7 +50,7 @@ const LOANS = SA_NAMES.map((n, i) => ({
     erased: false
 }));
 
-// HONEYPOT DATA SIMULATION
+
 const HONEY_CARDS = SA_NAMES.map(n => ({
     name: n + ' (TEST)',
     num: '4' + rand(1000, 9999) + ' ' + rand(1000, 9999) + ' ' + rand(1000, 9999) + ' ' + rand(1000, 9999),
@@ -71,7 +67,7 @@ const HONEY_LOANS = SA_NAMES.map((n, i) => ({
     erased: false
 }));
 
-// GLOBAL STATE
+
 let sgActive = false;
 let currentHacker = null;
 let bankUser = null;
@@ -82,9 +78,7 @@ let loansErasedCount = 0;
 let layerAttempts = [0, 0, 0, 0, 0];
 let layersExhausted = [false, false, false, false, false];
 
-// ======================================================
-// SECTION 2: SECURITY LOGGING & DEFENSE LAYER UI
-// ======================================================
+
 
 function logSecurity(msg) {
     const t = new Date().toLocaleTimeString();
@@ -141,9 +135,7 @@ function updateLayers() {
     `).join('');
 }
 
-// ======================================================
-// SECTION 3: BANK AUTHENTICATION, NAVIGATION & DASHBOARD DATA
-// ======================================================
+
 
 function bankLogin() {
     bankUser = 'Admin';
@@ -239,9 +231,6 @@ function renderBankData() {
     }
 }
 
-// ======================================================
-// SECTION 3: BANK AUTHENTICATION, NAVIGATION & DASHBOARD DATA
-// ======================================================
 
 function bankLogin() {
     bankUser = 'Admin';
@@ -337,9 +326,7 @@ function renderBankData() {
     }
 }
 
-// ======================================================
-// SECTION 4: HACKER CONSOLE AUTHENTICATION & NAVIGATION
-// ======================================================
+
 
 function selectActor(code) {
     document.querySelectorAll('.hack-actor-btn').forEach(b => b.classList.remove('selected'));
@@ -386,9 +373,6 @@ function hackTab(name, btn) {
     if (view) view.classList.add('active');
 }
 
-// ======================================================
-// SECTION 5: SENTINEL-GRID ACTIVATION & ATTACK SIMULATION
-// ======================================================
 
 function handleSGButton() {
     sgActive ? deactivateSG() : openSgModal();
@@ -579,9 +563,6 @@ function runAIAttack() {
     }, 1500);
 }
 
-// ======================================================
-// SECTION 6: DATA EXTRACTION SIMULATION & SECURITY RECOMMENDATIONS
-// ======================================================
 
 function runCardAttack() {
     if (!currentHacker) {
@@ -939,7 +920,7 @@ function updateSecurityRecommendations() {
     `).join('');
 }
 
-// INITIALIZATION
+
 document.addEventListener('DOMContentLoaded', () => {
     updateLayers();
     updateSGUI();
