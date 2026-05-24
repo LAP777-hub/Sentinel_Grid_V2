@@ -1,8 +1,4 @@
-
-
 "use strict";
-
-
 
 const SA_NAMES = [
     "Sipho Dlamini",
@@ -11,6 +7,7 @@ const SA_NAMES = [
     "Zanele Mokoena",
     "Lungelo Sithole",
     "Precious Mthembu",
+    "Kagiso Molefe",
     "Ayanda Zulu",
     "Lerato Khoza",
     "Bongani Ndlovu",
@@ -41,8 +38,6 @@ const attackTypes = [
     "MFA Fatigue Attack"
 ];
 
-
-
 let sgActive = false;
 let currentHacker = null;
 let bankUser = null;
@@ -58,15 +53,21 @@ let endpointAlerts = 0;
 let layerAttempts = [0, 0, 0, 0, 0];
 let layersExhausted = [false, false, false, false, false];
 
-
-
 const DEMO_APPROVAL_HASHES = [
-    "e18262706a87232efbcf0e0ae538b54feff09efb9d593a360f0f4a6e8a638849",
-    "5c7b31824ff57c357480677e0aeb5a55f3c20033557f8f8d96e8dabe98075a0b",
-    "e96a29ac9b981462956c09d86bd7c95b2d1a7b889cd926a6052ca9eac63e517b"
+    "0694945e96ccb51f337b5962ed70fa13ad13be6a63e803fefb42dabc1ec4a013",
+    "7c8d53b56d0be5ed53e3eb162419670ff2d1171e5e21e02ea8f9aeab0cf0d9bd",
+    "f1c6969705d6015f0a03ddc5762a24fffe3773c82df3a2c34d297037f47c1331"
 ];
 
+const DEMO_DUO_HASH = "a89efeea951579963954e763b2ded2fb77a7c89310db19e548f1d8ce0fd822b6";
 
+const BANK_USERNAME_HASHES = [
+    "ae03ff2e7210baf29be418b9d61ce2b396628aa6f4104b1ca82c993e44b7610b",
+    "de7cb23632127fe490a6d9344f09f99f537a3a15364a98e32977e2f28322a25a",
+    "777628f3c88bb081716ab0fffa2466b2d4bda629112c3a25a17f105c05f0e7d8"
+];
+
+const BANK_PASSWORD_HASH = "acf11dfdac01fc15adb7de8b3402dbc412168e7c9264fd9351f8fc3778666ca5";
 
 const endpointCatalog = {
     "/admin/dashboard": {
@@ -137,8 +138,6 @@ Object.keys(endpointCatalog).forEach(function (endpoint) {
     };
 });
 
-
-
 const CARDS = SA_NAMES.map(function (name) {
     return {
         name: name,
@@ -178,7 +177,6 @@ const HONEY_LOANS = SA_NAMES.map(function (name, index) {
         erased: false
     };
 });
-
 
 function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -251,8 +249,6 @@ async function sha256Hex(input) {
         })
         .join("");
 }
-
-
 
 function touchEndpoint(endpoint, actor, vector, blocked) {
     if (!endpointState[endpoint]) {
@@ -369,10 +365,57 @@ function logSecurity(message, meta) {
     updateSecurityRecommendations();
 }
 
+async function bankLogin() {
+    const usernameInput = safeGet("bankUser");
+    const passwordInput = safeGet("bankPass");
+    const bankErr = safeGet("bankErr");
 
+    const enteredUsername = usernameInput ? usernameInput.value.trim() : "";
+    const enteredPassword = passwordInput ? passwordInput.value : "";
 
-function bankLogin() {
-    bankUser = "System Admin";
+    if (bankErr) {
+        bankErr.textContent = "";
+    }
+
+    if (!enteredUsername || !enteredPassword) {
+        if (bankErr) {
+            bankErr.textContent = "Username and password are required.";
+        }
+
+        logSecurity("🚫 Bank admin login failed: missing username or password", {
+            endpoint: "/admin/dashboard",
+            vector: "Bank admin authentication failure",
+            severity: "MEDIUM",
+            blocked: true,
+            mitigation: "Require valid username and password before allowing admin dashboard access."
+        });
+
+        return;
+    }
+
+    const usernameHash = await sha256Hex(enteredUsername);
+    const passwordHash = await sha256Hex(enteredPassword);
+
+    const usernameAllowed = BANK_USERNAME_HASHES.includes(usernameHash);
+    const passwordCorrect = passwordHash === BANK_PASSWORD_HASH;
+
+    if (!usernameAllowed || !passwordCorrect) {
+        if (bankErr) {
+            bankErr.textContent = "Invalid username or password.";
+        }
+
+        logSecurity("🚫 Bank admin login failed", {
+            endpoint: "/admin/dashboard",
+            vector: "Bank admin authentication failure",
+            severity: "HIGH",
+            blocked: true,
+            mitigation: "Monitor repeated login failures and apply lockout/MFA in production."
+        });
+
+        return;
+    }
+
+    bankUser = enteredUsername;
 
     const bankLoginWrap = safeGet("bankLoginWrap");
     const bankDash = safeGet("bankDash");
@@ -392,10 +435,10 @@ function bankLogin() {
     }
 
     if (bankWho) {
-        bankWho.textContent = "System Admin";
+        bankWho.textContent = enteredUsername;
     }
 
-    touchEndpoint("/admin/dashboard", "System Admin", "Prototype admin login", false);
+    touchEndpoint("/admin/dashboard", enteredUsername, "Prototype bank admin login successful", false);
 
     updateBankTime();
     setInterval(updateBankTime, 60000);
@@ -403,9 +446,10 @@ function bankLogin() {
     renderBankData();
     updateLayers();
 
-    logSecurity("✅ Bank administrator entered prototype control panel", {
+    logSecurity("✅ Bank administrator logged into prototype control panel", {
         endpoint: "/admin/dashboard",
-        vector: "Admin control panel access",
+        actor: enteredUsername,
+        vector: "Bank admin authentication success",
         severity: "INFO",
         mitigation: "Production requires backend authentication, MFA, RBAC, secure session cookies and audit logs."
     });
@@ -515,7 +559,6 @@ function renderBankData() {
     }
 }
 
-
 function selectActor(code) {
     document.querySelectorAll(".hack-actor-btn").forEach(function (button) {
         button.classList.remove("selected");
@@ -596,8 +639,6 @@ function hackTab(name, btn) {
     }
 }
 
-
-
 function handleSGButton() {
     if (sgActive) {
         deactivateSG();
@@ -606,7 +647,38 @@ function handleSGButton() {
     }
 }
 
+function ensureDuoInput() {
+    if (safeGet("sgDuo")) {
+        return;
+    }
+
+    const modal = document.querySelector(".sg-modal");
+    const hint = document.querySelector(".sg-modal-hint");
+
+    if (!modal || !hint) {
+        return;
+    }
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "sg-modal-field";
+
+    const label = document.createElement("label");
+    label.textContent = "DUO — VERIFICATION CODE";
+
+    const input = document.createElement("input");
+    input.type = "password";
+    input.id = "sgDuo";
+    input.placeholder = "DUO code";
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(input);
+
+    modal.insertBefore(wrapper, hint);
+}
+
 function openSgModal() {
+    ensureDuoInput();
+
     const sgModal = safeGet("sgModal");
 
     if (sgModal) {
@@ -621,7 +693,7 @@ function closeSgModal() {
         sgModal.classList.remove("open");
     }
 
-    ["sgC1", "sgC2", "sgC3"].forEach(function (id) {
+    ["sgC1", "sgC2", "sgC3", "sgDuo"].forEach(function (id) {
         const input = safeGet(id);
 
         if (input) {
@@ -639,59 +711,70 @@ function closeSgModal() {
 async function activateSG() {
     const sgErr = safeGet("sgErr");
 
-    const approvals = ["sgC1", "sgC2", "sgC3"]
-        .map(function (id) {
-            const input = safeGet(id);
-            return input ? input.value.trim() : "";
-        })
-        .filter(function (value) {
-            return value.length > 0;
-        });
+    const approvals = ["sgC1", "sgC2", "sgC3"].map(function (id) {
+        const input = safeGet(id);
+        return input ? input.value.trim() : "";
+    });
 
-    if (approvals.length < 2) {
+    const duoInput = safeGet("sgDuo");
+    const duoValue = duoInput ? duoInput.value.trim() : "";
+
+    if (sgErr) {
+        sgErr.textContent = "";
+    }
+
+    if (approvals.some(function (value) {
+        return value.length === 0;
+    }) || duoValue.length === 0) {
         if (sgErr) {
-            sgErr.textContent = "Minimum 2 operator approvals required";
+            sgErr.textContent = "All 3 SG approvals and DUO code are required.";
         }
 
-        logSecurity("⚠️ SG activation failed: fewer than two approvals supplied", {
+        logSecurity("⚠️ SG activation failed: missing SG approval or DUO code", {
             endpoint: "/sg/activate",
-            vector: "Weak activation attempt",
+            vector: "Incomplete SG activation attempt",
             severity: "MEDIUM",
             blocked: true,
-            mitigation: "Require backend two-admin approval with MFA/FIDO2 in production."
+            mitigation: "Require all three operator approvals plus DUO verification before SG activation."
         });
 
         return;
     }
 
-    const hashes = await Promise.all(approvals.map(function (value) {
+    const approvalHashes = await Promise.all(approvals.map(function (value) {
         return sha256Hex(value);
     }));
 
-    const matchedHashes = Array.from(new Set(hashes.filter(function (hash) {
-        return DEMO_APPROVAL_HASHES.includes(hash);
-    })));
+    const duoHash = await sha256Hex(duoValue);
 
-    if (matchedHashes.length >= 2) {
+    const uniqueApprovalHashes = Array.from(new Set(approvalHashes));
+
+    const allThreeApprovalsValid = DEMO_APPROVAL_HASHES.every(function (requiredHash) {
+        return uniqueApprovalHashes.includes(requiredHash);
+    });
+
+    const duoValid = duoHash === DEMO_DUO_HASH;
+
+    if (allThreeApprovalsValid && duoValid) {
         sgActive = true;
 
         closeSgModal();
         updateSGUI();
 
-        logSecurity("🔒 SENTINEL-GRID ACTIVATED - deception routing and honeypot evidence mode active", {
+        logSecurity("🔒 SENTINEL-GRID ACTIVATED - all SG approvals and DUO verification accepted", {
             endpoint: "/sg/activate",
-            vector: "Two-person SG activation",
+            vector: "Three-approval SG activation with DUO verification",
             severity: "HIGH",
             mitigation: "Production must use backend approval, MFA/FIDO2, signed logs and SOC ticketing."
         });
     } else {
         if (sgErr) {
-            sgErr.textContent = "Invalid approvals";
+            sgErr.textContent = "Invalid SG approval code or DUO code.";
         }
 
-        logSecurity("🚫 SG activation blocked: invalid operator approvals", {
+        logSecurity("🚫 SG activation blocked: invalid SG approval or DUO verification", {
             endpoint: "/sg/activate",
-            vector: "Invalid activation attempt",
+            vector: "Invalid SG activation attempt",
             severity: "HIGH",
             blocked: true,
             mitigation: "Monitor repeated activation failures as possible Sentinel Grid control-plane attack."
@@ -730,8 +813,6 @@ function updateSGUI() {
     }
 }
 
-
-
 function appendMsg(container, text, cls) {
     if (!container) {
         return;
@@ -755,8 +836,6 @@ function openAttackTerminal() {
 
     return body;
 }
-
-
 
 function runAttack(layerIndex) {
     if (!currentHacker) {
@@ -886,8 +965,6 @@ function updateLayers() {
         </div>
     `;
 }
-
-
 
 function classifyAICommand(command) {
     const text = command.toLowerCase();
@@ -1046,8 +1123,6 @@ function runAIAttack() {
     }, 1200);
 }
 
-
-
 function runCardAttack() {
     if (!currentHacker) {
         alert("Select actor first");
@@ -1113,7 +1188,6 @@ function runCardAttack() {
         }, 500);
     }, 800);
 }
-
 
 function runLoanAccess() {
     if (!currentHacker) {
@@ -1304,8 +1378,6 @@ function refreshLoanDisplay() {
     makeLoansClickable();
 }
 
-
-
 function runPiiAttack() {
     if (!currentHacker) {
         alert("Select actor first");
@@ -1373,8 +1445,6 @@ function runPiiAttack() {
         });
     }, 800);
 }
-
-
 
 function buildEndpointRiskCards() {
     return Object.keys(endpointCatalog).map(function (endpoint) {
@@ -1537,8 +1607,6 @@ function updateSecurityRecommendations() {
     `;
 }
 
-
-
 function buildIncidentReport() {
     return {
         reportName: "Sentinel Grid V2 Prototype Security Incident Report",
@@ -1643,8 +1711,6 @@ async function copyIncidentSummary() {
     }
 }
 
-
-
 function showPrototypeNotice() {
     if (safeGet("sgPrototypeNotice")) {
         return;
@@ -1660,10 +1726,12 @@ function showPrototypeNotice() {
 }
 
 function patchActivationHint() {
+    ensureDuoInput();
+
     const hints = document.querySelectorAll(".sg-modal-hint");
 
     hints.forEach(function (hint) {
-        hint.textContent = "MINIMUM 2 OF 3 REQUIRED | DEMO APPROVALS PROVIDED PRIVATELY FOR PRESENTATION";
+        hint.textContent = "ALL 3 SG APPROVALS + DUO VERIFICATION REQUIRED";
     });
 }
 
@@ -1688,8 +1756,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }, 2000);
 });
-
-
 
 window.bankLogin = bankLogin;
 window.bankLogout = bankLogout;
