@@ -7,23 +7,22 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-   
     <div class="split-label">◀ PMP BANK SYSTEM | HACKER CONSOLE ▶</div>
 
     <div class="sg-modal-bg" id="sgModal">
       <div class="sg-modal">
         <div class="sg-modal-title">⬡ SENTINEL-GRID ACTIVATION</div>
         <div class="sg-modal-field">
-          <label>SIYA — ADMIN 01</label
-          ><input type="password" id="sgC1" placeholder="Admin code" />
+          <label>SIYA — ADMIN 01</label>
+          <input type="password" id="sgC1" placeholder="Admin code" />
         </div>
         <div class="sg-modal-field">
-          <label>ORA — ADMIN 02</label
-          ><input type="password" id="sgC2" placeholder="Admin code" />
+          <label>ORA — ADMIN 02</label>
+          <input type="password" id="sgC2" placeholder="Admin code" />
         </div>
         <div class="sg-modal-field">
-          <label>LUCKY — ADMIN 03</label
-          ><input type="password" id="sgC3" placeholder="Admin code" />
+          <label>LUCKY — ADMIN 03</label>
+          <input type="password" id="sgC3" placeholder="Admin code" />
         </div>
         <div class="sg-modal-hint">
           MINIMUM 2 OF 3 REQUIRED | DEMO CODES: SG-ALPHA-01 / SG-BRAVO-02 /
@@ -39,12 +38,9 @@
       </div>
     </div>
 
-   
     <div class="split">
-     
-     
+      <!-- BANK SIDE -->
       <div class="bank-side">
-      
         <div class="bank-topbar">
           <div class="bank-logo-wrap">
             <div class="bank-logo-mark">PMP</div>
@@ -53,7 +49,6 @@
               <span class="bank-logo-sub">STAFF SECURE PORTAL</span>
             </div>
           </div>
-         
           <button
             class="sg-pill off"
             id="sgToggleBtn"
@@ -65,7 +60,6 @@
           </button>
         </div>
 
-     
         <div class="bank-login-wrap" id="bankLoginWrap">
           <div class="bank-login-card">
             <div class="bank-login-logo">
@@ -76,8 +70,8 @@
               </div>
             </div>
             <div class="bank-field">
-              <label>USERNAME</label
-              ><input
+              <label>USERNAME</label>
+              <input
                 type="text"
                 id="bankUser"
                 value="admin"
@@ -85,8 +79,8 @@
               />
             </div>
             <div class="bank-field">
-              <label>PASSWORD</label
-              ><input
+              <label>PASSWORD</label>
+              <input
                 type="password"
                 id="bankPass"
                 placeholder="Password"
@@ -101,9 +95,7 @@
           </div>
         </div>
 
-       
         <div class="bank-dash" id="bankDash">
-          <!-- User info bar with logout button -->
           <div class="bank-user-bar">
             <div class="bank-user-info">
               Logged in as <strong id="bankWho">—</strong> | Branch: Head Office
@@ -112,7 +104,6 @@
             <button class="bank-logout" onclick="bankLogout()">Log Out</button>
           </div>
 
-         
           <div class="bank-nav">
             <button
               class="bank-nav-btn active"
@@ -134,23 +125,17 @@
             </button>
           </div>
 
-         
           <div class="bank-content">
-            <!-- Alert panel for critical security events -->
             <div class="sg-alert-panel" id="bankAlertPanel">
               <div class="sg-alert-title">⚠ ACTIVE SECURITY ALERTS</div>
               <div id="bankAlertList"></div>
             </div>
-
-            <!-- Recommendations panel for SOC team actions -->
             <div class="sg-rec-panel" id="bankRecPanel">
               <div class="sg-rec-title">✓ RECOMMENDED ACTIONS</div>
               <div id="bankRecList"></div>
             </div>
 
-          
             <div class="bank-view active" id="bv-overview">
-              <!-- KPI Metrics Cards -->
               <div class="bank-metrics">
                 <div class="bm">
                   <div class="bm-label">TOTAL DEPOSITS</div>
@@ -173,8 +158,6 @@
                   <div class="bm-sub">past 24 hours</div>
                 </div>
               </div>
-
-              <!-- Recent Transactions Table (static sample data) -->
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
                   <div class="bank-table-title">Recent Transactions</div>
@@ -200,7 +183,7 @@
                       <td>R 12,500.00</td>
                       <td>
                         <span class="bank-badge badge-active">Completed</span>
-                       </td>
+                      </td>
                     </tr>
                     <tr>
                       <td>14:18</td>
@@ -210,14 +193,13 @@
                       <td>R 3,200.00</td>
                       <td>
                         <span class="bank-badge badge-active">Completed</span>
-                       </td>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-        
             <div class="bank-view" id="bv-accounts">
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
@@ -238,7 +220,6 @@
                 </table>
               </div>
             </div>
-
 
             <div class="bank-view" id="bv-cards">
               <div class="bank-table-wrap">
@@ -263,9 +244,6 @@
               </div>
             </div>
 
-        
-          
-            
             <div class="bank-view" id="bv-loans">
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
@@ -288,9 +266,7 @@
               </div>
             </div>
 
-           
             <div class="bank-view" id="bv-security">
-            
               <div class="bank-metrics">
                 <div class="bm">
                   <div class="bm-label">ATTACKS DETECTED</div>
@@ -322,7 +298,6 @@
                 <div id="defenseLayersContainer" style="padding: 12px"></div>
               </div>
 
-             
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
                   <div class="bank-table-title">Security Event Log</div>
@@ -335,7 +310,6 @@
                 </div>
               </div>
 
-            
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
                   <div class="bank-table-title">
@@ -354,20 +328,17 @@
         </div>
       </div>
 
-      
+      <!-- HACKER SIDE -->
       <div class="hack-side">
-        <!-- Hacker Top Bar -->
         <div class="hack-topbar">
           <div class="hack-logo">◈ THREAT CONSOLE</div>
           <div class="hack-status" id="hackTopStatus">DORMANT</div>
         </div>
 
-      
         <div class="hack-login-wrap" id="hackLoginWrap">
           <div class="hack-login-box">
             <div class="hack-actors">
               <div class="attack-section-title">SELECT THREAT ACTOR</div>
-              
               <button
                 class="hack-actor-btn"
                 onclick="selectActor('GHOST_7')"
@@ -406,9 +377,7 @@
           </div>
         </div>
 
-        
         <div class="hack-dash" id="hackDash">
-          <!-- Who bar shows active hacker identity and SG status -->
           <div class="hack-who-bar">
             <div class="hack-who" id="hackWhoLabel">—</div>
             <div>
@@ -419,7 +388,6 @@
             </div>
           </div>
 
-        
           <div class="hack-tabs">
             <button class="hack-tab active" onclick="hackTab('attack', this)">
               ATTACK
@@ -435,38 +403,25 @@
             </button>
           </div>
 
-        
           <div class="hack-content">
-           
-            /* TAB 1: Attack Vectors
-               Five security layers to breach sequentially   */
-          
             <div class="hack-view active" id="hv-attack">
               <div class="attack-section-title">ATTACK VECTORS</div>
-            
               <button class="attack-btn" onclick="runAttack(0)">
-                <span class="attack-btn-name">
-                  LAYER 1: Perimeter Firewall</span
-                >
+                <span class="attack-btn-name">LAYER 1: Perimeter Firewall</span>
               </button>
-             
               <button class="attack-btn" onclick="runAttack(1)">
-                <span class="attack-btn-name"> LAYER 2: WAF / SQLi Filter</span>
+                <span class="attack-btn-name">LAYER 2: WAF / SQLi Filter</span>
               </button>
-             
               <button class="attack-btn" onclick="runAttack(2)">
-                <span class="attack-btn-name"> LAYER 3: API Gateway Auth</span>
+                <span class="attack-btn-name">LAYER 3: API Gateway Auth</span>
               </button>
-              
               <button class="attack-btn" onclick="runAttack(3)">
-                <span class="attack-btn-name"> LAYER 4: DB Access Control</span>
+                <span class="attack-btn-name">LAYER 4: DB Access Control</span>
               </button>
-            
               <button class="attack-btn" onclick="runAttack(4)">
-                <span class="attack-btn-name"> LAYER 5: Admin MFA Bypass</span>
+                <span class="attack-btn-name">LAYER 5: Admin MFA Bypass</span>
               </button>
 
-            
               <div class="ai-attack-area">
                 <div class="attack-section-title">🤖 AI ATTACK</div>
                 <input
@@ -484,15 +439,14 @@
                 </button>
               </div>
 
-            
               <div
                 id="attackTerminal"
                 class="terminal-wrap"
                 style="display: none"
               >
                 <div class="terminal-bar">
-                  <span>ATTACK LOG</span
-                  ><button
+                  <span>ATTACK LOG</span>
+                  <button
                     onclick="
                       document.getElementById('attackTermBody').innerHTML = '';
                       this.parentElement.parentElement.style.display = 'none';
@@ -505,7 +459,6 @@
               </div>
             </div>
 
-          
             <div class="hack-view" id="hv-cards">
               <div class="attack-section-title">CARD VAULT EXFILTRATION</div>
               <button class="attack-btn" onclick="runCardAttack()">
@@ -529,7 +482,6 @@
                 </div>
                 <div class="terminal-body" id="cardTermBody"></div>
               </div>
-            
               <div id="cardResults" style="display: none; margin-top: 10px">
                 <div class="hack-result-title">EXTRACTED CARDS</div>
                 <div style="overflow-x: auto">
@@ -549,7 +501,6 @@
               </div>
             </div>
 
-            
             <div class="hack-view" id="hv-loans">
               <div class="attack-section-title">LOAN MANIPULATION</div>
               <button class="attack-btn" onclick="runLoanAccess()">
@@ -573,14 +524,12 @@
                 </div>
                 <div class="terminal-body" id="loanTermBody"></div>
               </div>
-              <!-- Display loan records with manipulation buttons -->
               <div id="loanResults" style="display: none; margin-top: 10px">
                 <div class="hack-result-title">LOAN RECORDS</div>
                 <div id="loanList"></div>
               </div>
             </div>
 
-            
             <div class="hack-view" id="hv-pii">
               <div class="attack-section-title">CLIENT PII DUMP</div>
               <button class="attack-btn" onclick="runPiiAttack()">
@@ -600,7 +549,6 @@
                 </div>
                 <div class="terminal-body" id="piiTermBody"></div>
               </div>
-             
               <div id="piiResults" style="display: none; margin-top: 10px">
                 <div class="hack-result-title">CLIENT PII</div>
                 <div>
