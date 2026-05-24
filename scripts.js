@@ -81,3 +81,62 @@ let loansErasedCount = 0;
 
 let layerAttempts = [0, 0, 0, 0, 0];
 let layersExhausted = [false, false, false, false, false];
+
+// ======================================================
+// SECTION 2: SECURITY LOGGING & DEFENSE LAYER UI
+// ======================================================
+
+function logSecurity(msg) {
+    const t = new Date().toLocaleTimeString();
+
+    securityLog.unshift({
+        time: t,
+        msg: msg
+    });
+
+    const secLogBody = document.getElementById('secLogBody');
+    if (secLogBody) {
+        secLogBody.innerHTML = securityLog.slice(0, 20).map(e => `
+            <div class="sec-alert-row">
+                <span class="sec-alert-time">${e.time}</span>
+                <span>${e.msg}</span>
+            </div>
+        `).join('');
+    }
+
+    const secAttackCount = document.getElementById('secAttackCount');
+    const secTrapped = document.getElementById('secTrapped');
+    const secLoansErased = document.getElementById('secLoansErased');
+
+    if (secAttackCount) secAttackCount.innerHTML = securityLog.length;
+    if (secTrapped) secTrapped.innerHTML = trappedCount;
+    if (secLoansErased) secLoansErased.innerHTML = loansErasedCount;
+
+    updateSecurityRecommendations();
+}
+
+function updateLayers() {
+    const c = document.getElementById('defenseLayersContainer');
+    if (!c) return;
+
+    const names = [
+        "Perimeter Firewall",
+        "WAF / SQL Injection Filter",
+        "API Gateway",
+        "Database Access Control",
+        "Admin MFA"
+    ];
+
+    c.innerHTML = names.map((n, i) => `
+        <div class="defense-layer-card ${layersExhausted[i] ? 'exhausted' : ''}">
+            <div>
+                <strong> LAYER ${i + 1}: ${n}</strong>
+                <span>${layersExhausted[i] ? 'BREACHED' : 'ACTIVE'}</span>
+            </div>
+
+            <div>
+                Attempts: ${layerAttempts[i]}
+            </div>
+        </div>
+    `).join('');
+}
