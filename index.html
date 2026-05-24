@@ -139,5 +139,77 @@
   </div>
 </div>
 
+<div class="hack-side">
+  <div class="hack-topbar">
+    <div class="hack-logo">◈ THREAT CONSOLE</div>
+    <div class="hack-status" id="hackTopStatus">DORMANT</div>
+  </div>
+  <div class="hack-login-wrap" id="hackLoginWrap">
+    <div class="hack-login-box">
+      <div class="hack-actors">
+        <div class="attack-section-title">SELECT THREAT ACTOR</div>
+        <button class="hack-actor-btn" onclick="selectActor('GHOST_7')" id="actor-GHOST_7"><span class="hack-actor-code">GHOST_7</span><span class="hack-actor-type">Credential Theft · Card Skimming</span></button>
+        <button class="hack-actor-btn" onclick="selectActor('ZERO_D')" id="actor-ZERO_D"><span class="hack-actor-code">ZERO_D</span><span class="hack-actor-type">SQL Injection · Loan Manipulation</span></button>
+        <button class="hack-actor-btn" onclick="selectActor('PHANTOM_T')" id="actor-PHANTOM_T"><span class="hack-actor-code">PHANTOM_T</span><span class="hack-actor-type">AI-Driven Mass Exfiltration</span></button>
+      </div>
+      <button class="hack-enter-btn" onclick="hackLogin()">▶ ENTER SYSTEM</button>
+      <div class="hack-err" id="hackErr"></div>
+    </div>
+  </div>
+  <div class="hack-dash" id="hackDash">
+    <div class="hack-who-bar">
+      <div class="hack-who" id="hackWhoLabel">—</div>
+      <div><div class="hack-sg-indicator off" id="hackSgIndicator">SG: INACTIVE</div><button class="hack-who-exit" onclick="hackLogout()">EXIT</button></div>
+    </div>
+    <div class="hack-tabs">
+      <button class="hack-tab active" onclick="hackTab('attack',this)">ATTACK</button>
+      <button class="hack-tab" onclick="hackTab('cards',this)">CARD DATA</button>
+      <button class="hack-tab" onclick="hackTab('loans',this)">LOAN MANIP.</button>
+      <button class="hack-tab" onclick="hackTab('pii',this)">CLIENT PII</button>
+    </div>
+    <div class="hack-content">
+      <div class="hack-view active" id="hv-attack">
+        <div class="attack-section-title">ATTACK VECTORS</div>
+        <button class="attack-btn" onclick="runAttack(0)"><span class="attack-btn-name">🔓 LAYER 1: Perimeter Firewall</span></button>
+        <button class="attack-btn" onclick="runAttack(1)"><span class="attack-btn-name">🔓 LAYER 2: WAF / SQLi Filter</span></button>
+        <button class="attack-btn" onclick="runAttack(2)"><span class="attack-btn-name">🔓 LAYER 3: API Gateway Auth</span></button>
+        <button class="attack-btn" onclick="runAttack(3)"><span class="attack-btn-name">🔓 LAYER 4: DB Access Control</span></button>
+        <button class="attack-btn" onclick="runAttack(4)"><span class="attack-btn-name">🔓 LAYER 5: Admin MFA Bypass</span></button>
+        <div class="ai-attack-area">
+          <div class="attack-section-title">🤖 AI ATTACK</div>
+          <input type="text" id="aiCommand" class="ai-input" placeholder="Describe your attack...">
+          <button class="attack-btn" onclick="runAIAttack()" style="border-color:#00ffcc">🚀 EXECUTE AI</button>
+        </div>
+        <div id="attackTerminal" class="terminal-wrap" style="display:none">
+          <div class="terminal-bar"><span>ATTACK LOG</span><button onclick="document.getElementById('attackTermBody').innerHTML='';this.parentElement.parentElement.style.display='none'">CLEAR</button></div>
+          <div class="terminal-body" id="attackTermBody"></div>
+        </div>
+      </div>
+      <div class="hack-view" id="hv-cards">
+        <div class="attack-section-title">CARD VAULT EXFILTRATION</div>
+        <button class="attack-btn" onclick="runCardAttack()">💳 EXTRACT CARD DATA</button>
+        <div id="cardTerminal" class="terminal-wrap" style="display:none"><div class="terminal-bar"><span>CARD EXFIL</span><button onclick="document.getElementById('cardTermBody').innerHTML='';this.parentElement.parentElement.style.display='none'">CLEAR</button></div><div class="terminal-body" id="cardTermBody"></div></div>
+        <div id="cardResults" style="display:none;margin-top:10px"><div class="hack-result-title">EXTRACTED CARDS</div><div style="overflow-x:auto"><table class="hack-result-table" id="cardTable"><thead><tr><th>NAME</th><th>CARD NUMBER</th><th>EXPIRY</th><th>CVV</th><th>LIMIT</th></tr></thead><tbody id="cardTableBody"></tbody></table></div></div>
+      </div>
+      <div class="hack-view" id="hv-loans">
+        <div class="attack-section-title">LOAN MANIPULATION</div>
+        <button class="attack-btn" onclick="runLoanAccess()">🏦 ACCESS LOAN DATABASE</button>
+        <div id="loanTerminal" class="terminal-wrap" style="display:none"><div class="terminal-bar"><span>LOAN ACCESS</span><button onclick="document.getElementById('loanTermBody').innerHTML='';this.parentElement.parentElement.style.display='none'">CLEAR</button></div><div class="terminal-body" id="loanTermBody"></div></div>
+        <div id="loanResults" style="display:none;margin-top:10px"><div class="hack-result-title">LOAN RECORDS</div><div id="loanList"></div></div>
+      </div>
+      <div class="hack-view" id="hv-pii">
+        <div class="attack-section-title">CLIENT PII DUMP</div>
+        <button class="attack-btn" onclick="runPiiAttack()">📁 EXTRACT PII DATA</button>
+        <div id="piiTerminal" class="terminal-wrap" style="display:none"><div class="terminal-bar"><span>PII EXFIL</span><button onclick="document.getElementById('piiTermBody').innerHTML='';this.parentElement.parentElement.style.display='none'">CLEAR</button></div><div class="terminal-body" id="piiTermBody"></div></div>
+        <div id="piiResults" style="display:none;margin-top:10px"><div class="hack-result-title">CLIENT PII</div><div><table class="hack-result-table" id="piiTable"><thead><tr><th>NAME</th><th>ID</th><th>EMAIL</th><th>PHONE</th></tr></thead><tbody id="piiTableBody"></tbody></table></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src="scripts.js"></script>
+</body>
+</html>
+
       
       
