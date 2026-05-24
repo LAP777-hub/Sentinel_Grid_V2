@@ -920,7 +920,8 @@ function runAttack(layerIndex) {
                 appendMsg(body, "[!] CRITICAL: All layers breached. Sentinel Grid activated.", "t-warn");
             }
         } else {
-            appendMsg(body, "[" + layerNames[layerIndex] + "] Attempt " + attempt + " failed. " + (needed - attempt) + " more attempts until prototype breach threshold.", "t-err");
+
+            appendMsg(body, "[" + layerNames[layerIndex] + "] Access denied.", "t-err");
 
             logSecurity("Layer " + (layerIndex + 1) + " attack attempt #" + attempt + " failed", {
                 endpoint: endpoint,
