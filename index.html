@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emazizini Municipality — SENTINEL-GRID Prototype</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="scripts.js" defer></script>
   </head>
   <body>
     <div class="split-label">
@@ -14,27 +15,58 @@
     <div class="sg-modal-bg" id="sgModal">
       <div class="sg-modal">
         <div class="sg-modal-title">⬡ SENTINEL-GRID ACTIVATION</div>
+
         <div class="sg-modal-field">
-          <label>SIYA — ADMIN 01</label
-          ><input type="password" id="sgC1" placeholder="Admin code" />
+          <label>OPERATOR 01 — SG APPROVAL</label>
+          <input
+            type="password"
+            id="sgC1"
+            placeholder="Enter SG approval code 1"
+            autocomplete="off"
+          />
         </div>
+
         <div class="sg-modal-field">
-          <label>ORA — ADMIN 02</label
-          ><input type="password" id="sgC2" placeholder="Admin code" />
+          <label>OPERATOR 02 — SG APPROVAL</label>
+          <input
+            type="password"
+            id="sgC2"
+            placeholder="Enter SG approval code 2"
+            autocomplete="off"
+          />
         </div>
+
         <div class="sg-modal-field">
-          <label>LUCKY — ADMIN 03</label
-          ><input type="password" id="sgC3" placeholder="Admin code" />
+          <label>OPERATOR 03 — SG APPROVAL</label>
+          <input
+            type="password"
+            id="sgC3"
+            placeholder="Enter SG approval code 3"
+            autocomplete="off"
+          />
         </div>
+
+        <div class="sg-modal-field">
+          <label>DUO — VERIFICATION CODE</label>
+          <input
+            type="password"
+            id="sgDuo"
+            placeholder="Enter DUO verification code"
+            autocomplete="off"
+          />
+        </div>
+
         <div class="sg-modal-hint">
-          MINIMUM 2 OF 3 REQUIRED | DEMO CODES: SG-ALPHA-01 / SG-BRAVO-02 /
-          SG-DELTA-03
+          ALL 3 SG APPROVAL CODES + DUO VERIFICATION CODE ARE REQUIRED TO
+          ACTIVATE SENTINEL-GRID.
         </div>
+
         <div class="sg-modal-btns">
           <button class="sg-modal-btn cancel" onclick="closeSgModal()">
             CANCEL</button
           ><button class="sg-modal-btn" onclick="activateSG()">ACTIVATE</button>
         </div>
+
         <div class="sg-modal-err" id="sgErr"></div>
       </div>
     </div>
@@ -70,26 +102,31 @@
                 Billing Admin Login — Authorised Personnel Only
               </div>
             </div>
+
             <div class="bank-field">
-              <label>USERNAME</label
-              ><input
+              <label>USERNAME</label>
+              <input
                 type="text"
                 id="bankUser"
-                value="admin"
+                placeholder="Username"
                 autocomplete="off"
               />
             </div>
+
             <div class="bank-field">
-              <label>PASSWORD</label
-              ><input
+              <label>PASSWORD</label>
+              <input
                 type="password"
                 id="bankPass"
                 placeholder="Password"
+                autocomplete="off"
                 onkeydown="if (event.key === 'Enter') bankLogin();"
               />
             </div>
+
             <button class="bank-btn" onclick="bankLogin()">Sign In</button>
             <div class="bank-err" id="bankErr"></div>
+
             <div class="bank-secure-note">
               All billing admin sessions are monitored and recorded
             </div>
@@ -143,11 +180,13 @@
                   <div class="bm-val blue" id="totalBillsDisplay">R 0</div>
                   <div class="bm-sub">active customer accounts</div>
                 </div>
+
                 <div class="bm">
                   <div class="bm-label">WATER BILLS</div>
                   <div class="bm-val" id="totalWaterDisplay">R 0</div>
                   <div class="bm-sub">total water debt</div>
                 </div>
+
                 <div class="bm">
                   <div class="bm-label">ELECTRICITY BILLS</div>
                   <div class="bm-val green" id="totalElectricityDisplay">
@@ -155,6 +194,7 @@
                   </div>
                   <div class="bm-sub">total electricity debt</div>
                 </div>
+
                 <div class="bm">
                   <div class="bm-label">SECURITY ALERTS</div>
                   <div class="bm-val red" id="alertCountDisplay">0</div>
@@ -167,6 +207,7 @@
                   <div class="bank-table-title">Recent Transactions</div>
                   <div class="bank-table-meta">Last 24 hours</div>
                 </div>
+
                 <table class="bank-t">
                   <thead>
                     <tr>
@@ -253,6 +294,7 @@
                     Click any row to select customer | Active billing accounts
                   </div>
                 </div>
+
                 <table class="bank-t" id="accountsTable">
                   <thead>
                     <tr>
@@ -275,6 +317,7 @@
                   <div class="bank-table-title">Customer Banking Details</div>
                   <div class="bank-table-meta">Payment methods</div>
                 </div>
+
                 <table class="bank-t" id="cardsTable">
                   <thead>
                     <tr>
@@ -296,6 +339,7 @@
                   <div class="bank-table-title">Water & Electricity Bills</div>
                   <div class="bank-table-meta">Customer utility balances</div>
                 </div>
+
                 <table class="bank-t" id="loansTable">
                   <thead>
                     <tr>
@@ -319,16 +363,19 @@
                   <div class="bm-val red" id="secAttackCount">0</div>
                   <div class="bm-sub">total logged</div>
                 </div>
+
                 <div class="bm">
                   <div class="bm-label">DATA COMPROMISED</div>
                   <div class="bm-val red" id="secDataComp">None</div>
                   <div class="bm-sub">customer data secure</div>
                 </div>
+
                 <div class="bm">
                   <div class="bm-label">SG TRAPPED</div>
                   <div class="bm-val green" id="secTrapped">0</div>
                   <div class="bm-sub">honeypot catches</div>
                 </div>
+
                 <div class="bm">
                   <div class="bm-label">BILLS ERASED</div>
                   <div class="bm-val red" id="secLoansErased">0</div>
@@ -391,6 +438,7 @@
                   >Credential Theft · Payment Data Skimming</span
                 >
               </button>
+
               <button
                 class="hack-actor-btn"
                 onclick="selectActor('ZERO_D')"
@@ -401,20 +449,23 @@
                   >SQL Injection · Bill Manipulation</span
                 >
               </button>
+
               <button
                 class="hack-actor-btn"
                 onclick="selectActor('PHANTOM_T')"
                 id="actor-PHANTOM_T"
               >
-                <span class="hack-actor-code">PHANTOM_T</span
-                ><span class="hack-actor-type"
-                  >AI-Driven Mass Exfiltration</span
-                >
+                <span class="hack-actor-code">PHANTOM_T</span>
+                <span class="hack-actor-type">
+                  AI-Driven Mass Exfiltration
+                </span>
               </button>
             </div>
+
             <button class="hack-enter-btn" onclick="hackLogin()">
               ▶ ENTER SYSTEM
             </button>
+
             <div class="hack-err" id="hackErr"></div>
           </div>
         </div>
@@ -422,6 +473,7 @@
         <div class="hack-dash" id="hackDash">
           <div class="hack-who-bar">
             <div class="hack-who" id="hackWhoLabel">—</div>
+
             <div>
               <div class="hack-sg-indicator off" id="hackSgIndicator">
                 SG: INACTIVE
@@ -465,6 +517,7 @@
               </button>
               <div class="ai-attack-area">
                 <div class="attack-section-title">🤖 AI ATTACK</div>
+
                 <input
                   type="text"
                   id="aiCommand"
@@ -484,8 +537,8 @@
                 style="display: none"
               >
                 <div class="terminal-bar">
-                  <span>ATTACK LOG</span
-                  ><button
+                  <span>ATTACK LOG</span>
+                  <button
                     onclick="
                       document.getElementById('attackTermBody').innerHTML = '';
                       this.parentElement.parentElement.style.display = 'none';
@@ -505,6 +558,7 @@
               <button class="attack-btn" onclick="runCardAttack()">
                 💳 EXTRACT BANK DETAILS
               </button>
+
               <div
                 id="cardTerminal"
                 class="terminal-wrap"
@@ -547,6 +601,7 @@
               <button class="attack-btn" onclick="runLoanAccess()">
                 🏦 ACCESS BILLING DATABASE
               </button>
+
               <div
                 id="loanTerminal"
                 class="terminal-wrap"
@@ -587,13 +642,15 @@
 
             <div class="hack-view" id="hv-pii">
               <div class="attack-section-title">CLIENT PII DUMP</div>
+
               <button class="attack-btn" onclick="runPiiAttack()">
                 📁 EXTRACT PII DATA
               </button>
+
               <div id="piiTerminal" class="terminal-wrap" style="display: none">
                 <div class="terminal-bar">
-                  <span>PII EXFIL</span
-                  ><button
+                  <span>PII EXFIL</span>
+                  <button
                     onclick="
                       document.getElementById('piiTermBody').innerHTML = '';
                       this.parentElement.parentElement.style.display = 'none';
@@ -606,6 +663,7 @@
               </div>
               <div id="piiResults" style="display: none; margin-top: 10px">
                 <div class="hack-result-title">CLIENT PII</div>
+
                 <div>
                   <table class="hack-result-table" id="piiTable">
                     <thead>
