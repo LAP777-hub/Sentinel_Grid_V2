@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMP Bank — SENTINEL-GRID Prototype</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMP Bank — SENTINEL-GRID Prototype</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-</body>
-</html>
+
+
+   <div class="split-label">◀ PMP BANK SYSTEM | HACKER CONSOLE ▶</div>
+<div class="sg-modal-bg" id="sgModal">
+  <div class="sg-modal">
+    <div class="sg-modal-title">⬡ SENTINEL-GRID ACTIVATION</div>
+    <div class="sg-modal-field"><label>SIYA — ADMIN 01</label><input type="password" id="sgC1" placeholder="Admin code"></div>
+    <div class="sg-modal-field"><label>ORA — ADMIN 02</label><input type="password" id="sgC2" placeholder="Admin code"></div>
+    <div class="sg-modal-field"><label>LUCKY — ADMIN 03</label><input type="password" id="sgC3" placeholder="Admin code"></div>
+    <div class="sg-modal-hint">MINIMUM 2 OF 3 REQUIRED | DEMO CODES: SG-ALPHA-01 / SG-BRAVO-02 / SG-DELTA-03</div>
+    <div class="sg-modal-btns">
+      <button class="sg-modal-btn cancel" onclick="closeSgModal()">CANCEL</button>
+      <button class="sg-modal-btn" onclick="activateSG()">ACTIVATE</button>
+    </div>
+    <div class="sg-modal-err" id="sgErr"></div>
+  </div>
+</div>
+<div class="split"> 
