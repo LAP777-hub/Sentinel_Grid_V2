@@ -1,1 +1,11 @@
-gitignore
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=IBM+Plex+S
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bank-bg:#f5f6fa;--bank-surf:#ffffff;--bank-bord:#e2e8f0;--bank-nav:#1a2332;
+  --bank-blue:#1e40af;--bank-blue-l:#eff6ff;--bank-gold:#b45309;
+  --bank-text:#1e293b;--bank-muted:#64748b;--bank-green:#059669;--bank-red:#dc2626;
+  --hack-bg:#050d0a;--hack-surf:#0a1a12;--hack-card:#0f2218;--hack-bord:#163824;
+  --hack-grn:#00ff88;--hack-cyan:#00ffcc;--hack-red:#ff3366;--hack-amb:#ffcc00;
+  --hack-txt:#a0ffcc;--hack-mut:#2a6644;
+}
+html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',sans-serif}
