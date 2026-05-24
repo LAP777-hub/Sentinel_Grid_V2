@@ -24,4 +24,33 @@
     <div class="sg-modal-err" id="sgErr"></div>
   </div>
 </div>
-<div class="split"> 
+<div class="split">
+
+    <div class="bank-side">
+  <div class="bank-topbar">
+    <div class="bank-logo-wrap">
+      <div class="bank-logo-mark">PMP</div>
+      <div>
+        <div class="bank-logo-text">PMP Bank</div>
+        <span class="bank-logo-sub">STAFF SECURE PORTAL</span>
+      </div>
+    </div>
+    <button class="sg-pill off" id="sgToggleBtn" onclick="handleSGButton()" style="display:none">
+      <div class="sg-dot"></div>
+      <span id="sgPillText">SENTINEL-GRID OFF</span>
+    </button>
+  </div>
+  <div class="bank-login-wrap" id="bankLoginWrap">
+    <div class="bank-login-card">
+      <div class="bank-login-logo">
+        <div class="bank-login-mark">PMP</div>
+        <div class="bank-login-title">PMP Bank</div>
+        <div class="bank-login-sub">Staff Login — Authorised Personnel Only</div>
+      </div>
+      <div class="bank-field"><label>USERNAME</label><input type="text" id="bankUser" value="admin" autocomplete="off"></div>
+      <div class="bank-field"><label>PASSWORD</label><input type="password" id="bankPass" placeholder="Password" onkeydown="if(event.key==='Enter')bankLogin()"></div>
+      <button class="bank-btn" onclick="bankLogin()">Sign In</button>
+      <div class="bank-err" id="bankErr"></div>
+      <div class="bank-secure-note">All sessions are monitored and recorded</div>
+    </div>
+  </div>
