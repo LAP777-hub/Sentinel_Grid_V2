@@ -578,3 +578,387 @@ function runAIAttack() {
         runAttack(layer);
     }, 1500);
 }
+
+// ======================================================
+// SECTION 6: DATA EXTRACTION SIMULATION & SECURITY RECOMMENDATIONS
+// ======================================================
+
+function runCardAttack() {
+    if (!currentHacker) {
+        alert('Select actor first');
+        return;
+    }
+
+    const terminal = document.getElementById('cardTerminal');
+    const body = document.getElementById('cardTermBody');
+
+    if (terminal) terminal.style.display = 'block';
+    if (body) body.innerHTML = '';
+
+    appendMsg(body, '[*] Connecting to card vault...', 't-cmd');
+
+    setTimeout(() => {
+        appendMsg(body, '[*] Connection established. Extracting data...', 't-out');
+
+        setTimeout(() => {
+            const data = sgActive ? HONEY_CARDS : CARDS;
+
+            appendMsg(body, `[+] Extracted ${data.length} card records`, 't-suc');
+
+            const table = document.getElementById('cardTableBody');
+
+            if (table) {
+                table.innerHTML = data.map(c => `
+                    <tr>
+                        <td>${c.name}</td>
+                        <td>${c.num}</td>
+                        <td>${c.expiry}</td>
+                        <td>${c.cvv}</td>
+                        <td>${fmtRand(c.limit)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            const cardResults = document.getElementById('cardResults');
+            if (cardResults) cardResults.style.display = 'block';
+
+            logSecurity(`CARD DATA EXTRACTED by ${currentHacker} (${sgActive ? 'HONEYPOT' : 'REAL'})`);
+
+            if (sgActive) trappedCount++;
+        }, 500);
+    }, 800);
+}
+
+function runLoanAccess() {
+    if (!currentHacker) {
+        alert('Select actor first');
+        return;
+    }
+
+    const terminal = document.getElementById('loanTerminal');
+    const body = document.getElementById('loanTermBody');
+
+    if (terminal) terminal.style.display = 'block';
+    if (body) body.innerHTML = '';
+
+    appendMsg(body, '[*] Bypassing loan DB authentication...', 't-cmd');
+
+    setTimeout(() => {
+        appendMsg(body, '[*] Access granted. Fetching records...', 't-out');
+
+        setTimeout(() => {
+            const data = sgActive ? HONEY_LOANS : LOANS;
+
+            appendMsg(body, `[+] Loaded ${data.length} loan records`, 't-suc');
+
+            const container = document.getElementById('loanList');
+
+            if (container) {
+                container.innerHTML = data.map((l, i) => `
+                    <div class="loan-hack-row" data-idx="${i}">
+                        <div class="loan-hack-name">${l.name} — ${l.type}</div>
+                        <div class="loan-hack-bal ${l.erased ? 'erased' : ''}">
+                            ${l.erased ? 'R 0.00' : fmtRand(l.balance)}
+                        </div>
+                        <div>
+                            <button class="loan-hack-btn" onclick="clearLoan(${i})">CLEAR</button>
+                            <button class="loan-hack-btn" onclick="reduceLoan(${i})">-R435</button>
+                            <button class="loan-hack-btn" onclick="eraseLoan(${i})">ERASE</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const loanResults = document.getElementById('loanResults');
+            if (loanResults) loanResults.style.display = 'block';
+
+            logSecurity(`LOAN DATABASE ACCESSED by ${currentHacker} (${sgActive ? 'HONEYPOT' : 'REAL'})`);
+
+            if (sgActive) trappedCount++;
+
+            makeLoansClickable();
+        }, 500);
+    }, 800);
+}
+
+function makeLoansClickable() {
+    document.querySelectorAll('.loan-hack-row').forEach(row => {
+        row.style.cursor = 'pointer';
+
+        row.onclick = function (e) {
+            if (e.target.tagName === 'BUTTON') return;
+
+            document.querySelectorAll('.loan-hack-row').forEach(r => {
+                r.classList.remove('selected');
+                r.style.backgroundColor = '';
+            });
+
+            this.classList.add('selected');
+            this.style.backgroundColor = 'rgba(0,255,136,0.1)';
+        };
+    });
+}
+
+function getSelectedLoanIndex(idx) {
+    if (idx !== undefined) return idx;
+
+    const row = document.querySelector('.loan-hack-row.selected');
+
+    if (!row) {
+        alert('Click a loan row first');
+        return null;
+    }
+
+    return parseInt(row.getAttribute('data-idx'));
+}
+
+function clearLoan(idx) {
+    const i = getSelectedLoanIndex(idx);
+    if (i === null) return;
+
+    const data = sgActive ? HONEY_LOANS : LOANS;
+
+    if (data[i].erased) return;
+
+    data[i].erased = true;
+    data[i].balance = 0;
+
+    refreshLoanDisplay();
+
+    if (!sgActive) {
+        loansErasedCount++;
+        renderBankData();
+        logSecurity(`LOAN CLEARED for ${data[i].name} by ${currentHacker}`);
+    } else {
+        trappedCount++;
+        logSecurity(`HONEYPOT LOAN CLEAR attempt captured from ${currentHacker}`);
+    }
+
+    updateLayers();
+}
+
+function reduceLoan(idx) {
+    const i = getSelectedLoanIndex(idx);
+    if (i === null) return;
+
+    const data = sgActive ? HONEY_LOANS : LOANS;
+
+    if (data[i].erased) return;
+
+    data[i].balance = Math.max(0, data[i].balance - 435);
+
+    if (data[i].balance === 0) {
+        data[i].erased = true;
+    }
+
+    refreshLoanDisplay();
+
+    if (!sgActive) {
+        renderBankData();
+        logSecurity(`LOAN REDUCED for ${data[i].name} by R435`);
+    } else {
+        trappedCount++;
+        logSecurity(`HONEYPOT LOAN REDUCTION attempt captured from ${currentHacker}`);
+    }
+}
+
+function eraseLoan(idx) {
+    const i = getSelectedLoanIndex(idx);
+    if (i === null) return;
+
+    const data = sgActive ? HONEY_LOANS : LOANS;
+
+    if (data[i].erased) return;
+
+    data[i].erased = true;
+    data[i].balance = 0;
+
+    refreshLoanDisplay();
+
+    if (!sgActive) {
+        loansErasedCount++;
+        renderBankData();
+        logSecurity(`LOAN ERASED for ${data[i].name} by ${currentHacker}`);
+    } else {
+        trappedCount++;
+        logSecurity(`HONEYPOT LOAN ERASE attempt captured from ${currentHacker}`);
+    }
+}
+
+function refreshLoanDisplay() {
+    const data = sgActive ? HONEY_LOANS : LOANS;
+    const container = document.getElementById('loanList');
+
+    if (!container) return;
+
+    container.innerHTML = data.map((l, i) => `
+        <div class="loan-hack-row" data-idx="${i}">
+            <div class="loan-hack-name">${l.name} — ${l.type}</div>
+            <div class="loan-hack-bal ${l.erased ? 'erased' : ''}">
+                ${l.erased ? 'R 0.00' : fmtRand(l.balance)}
+            </div>
+            <div>
+                <button class="loan-hack-btn" onclick="clearLoan(${i})">CLEAR</button>
+                <button class="loan-hack-btn" onclick="reduceLoan(${i})">-R435</button>
+                <button class="loan-hack-btn" onclick="eraseLoan(${i})">ERASE</button>
+            </div>
+        </div>
+    `).join('');
+
+    makeLoansClickable();
+}
+
+function runPiiAttack() {
+    if (!currentHacker) {
+        alert('Select actor first');
+        return;
+    }
+
+    const terminal = document.getElementById('piiTerminal');
+    const body = document.getElementById('piiTermBody');
+
+    if (terminal) terminal.style.display = 'block';
+    if (body) body.innerHTML = '';
+
+    appendMsg(body, '[*] Dumping CRM database...', 't-cmd');
+
+    setTimeout(() => {
+        appendMsg(body, '[+] Extracted client PII records', 't-suc');
+
+        const data = sgActive
+            ? SA_NAMES.slice(0, 8).map(n => ({
+                name: n + ' (TEST)',
+                id: '9' + rand(100000000, 999999999),
+                email: n.toLowerCase().replace(' ', '.') + '@test.com',
+                phone: '0' + rand(700000000, 799999999)
+            }))
+            : SA_NAMES.slice(0, 8).map(n => ({
+                name: n,
+                id: '9' + rand(100000000, 999999999),
+                email: n.toLowerCase().replace(' ', '.') + '@example.com',
+                phone: '0' + rand(700000000, 799999999)
+            }));
+
+        const piiTableBody = document.getElementById('piiTableBody');
+
+        if (piiTableBody) {
+            piiTableBody.innerHTML = data.map(p => `
+                <tr>
+                    <td>${p.name}</td>
+                    <td>${p.id}</td>
+                    <td>${p.email}</td>
+                    <td>${p.phone}</td>
+                </tr>
+            `).join('');
+        }
+
+        const piiResults = document.getElementById('piiResults');
+        if (piiResults) piiResults.style.display = 'block';
+
+        logSecurity(`PII DATA EXTRACTED by ${currentHacker} (${sgActive ? 'HONEYPOT' : 'REAL'})`);
+
+        if (sgActive) trappedCount++;
+    }, 800);
+}
+
+function updateSecurityRecommendations() {
+    const recContainer = document.getElementById('recActionBody');
+    if (!recContainer) return;
+
+    let recommendations = [];
+
+    const trappedHoneypot = trappedCount > 0;
+    const layersBreached = layersExhausted.filter(b => b === true).length;
+    const totalLayers = layersExhausted.length;
+    const loansAffected = loansErasedCount > 0;
+    const sgCurrentlyActive = sgActive;
+    const recentAttacks = securityLog.length;
+
+    if (trappedHoneypot) {
+        recommendations.push({
+            priority: "URGENT",
+            title: "Honeypot Deception Active",
+            action: "The attacker is interacting with Sentinel-Grid decoy data. Keep monitoring the attacker while protecting the real banking environment.",
+            immediate: "Escalate to the SOC analyst, isolate affected endpoints, preserve logs, and block the suspicious source."
+        });
+    }
+
+    if (sgCurrentlyActive) {
+        recommendations.push({
+            priority: "HIGH",
+            title: "Sentinel-Grid Is Active",
+            action: "Fake card, loan, and PII records are being served to the attacker. This buys time for investigation and containment.",
+            immediate: "Do not deactivate SG until the SOC analyst completes investigation."
+        });
+    }
+
+    if (layersBreached > 0) {
+        recommendations.push({
+            priority: "HIGH",
+            title: `${layersBreached}/${totalLayers} Defense Layers Breached`,
+            action: "One or more security layers have been exhausted. Strengthen access control, review firewall rules, and inspect API traffic.",
+            immediate: "Patch the breached layer and rotate affected credentials."
+        });
+    }
+
+    if (loansAffected) {
+        recommendations.push({
+            priority: "CRITICAL",
+            title: "Loan Records Were Manipulated",
+            action: "Loan balances were modified while SG was inactive. This indicates real data impact.",
+            immediate: "Trigger disaster recovery, restore from backup, and begin audit investigation."
+        });
+    }
+
+    if (recentAttacks >= 10) {
+        recommendations.push({
+            priority: "MEDIUM",
+            title: "High Attack Activity",
+            action: "Multiple security events have been recorded in a short time.",
+            immediate: "Increase monitoring frequency and export logs for incident reporting."
+        });
+    }
+
+    if (recommendations.length === 0) {
+        recommendations.push({
+            priority: "NORMAL",
+            title: "System Stable",
+            action: "No major attacker activity detected yet.",
+            immediate: "Keep Sentinel-Grid ready and continue monitoring."
+        });
+    }
+
+    recContainer.innerHTML = recommendations.map(r => `
+        <div class="rec-card">
+            <div class="rec-priority">${r.priority}</div>
+            <h4>${r.title}</h4>
+            <p>${r.action}</p>
+            <strong>Immediate Action:</strong>
+            <p>${r.immediate}</p>
+        </div>
+    `).join('');
+}
+
+// INITIALIZATION
+document.addEventListener('DOMContentLoaded', () => {
+    updateLayers();
+    updateSGUI();
+
+    document.addEventListener('keydown', e => {
+        const bankLoginWrap = document.getElementById('bankLoginWrap');
+
+        if (
+            e.key === 'Enter' &&
+            bankLoginWrap &&
+            bankLoginWrap.style.display !== 'none'
+        ) {
+            bankLogin();
+        }
+    });
+
+    setInterval(() => {
+        if (bankUser) {
+            updateSecurityRecommendations();
+        }
+    }, 2000);
+});
