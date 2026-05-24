@@ -1,5 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=IBM+Plex+S
-*{box-sizing:border-box;margin:0;padding:0}
+``css
+/ -----------------------------------------------------
+   style.css — SentinelGridV2 (Oara - CSS Styling)
+   -----------------------------------------------------
+   • Styling for PMP Bank and Hacker Console Interface
+   • Includes split layout, Sentinel-Grid modal, and 
+     interactive elements for both interfaces.
+   • Each section documented for clarity.
+----------------------------------------------------- /
+
+/ -----------------------------------------------------
+   Snippet 1/6 - CSS Reset & Variables
+----------------------------------------------------- /
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bank-bg:#f5f6fa;--bank-surf:#ffffff;--bank-bord:#e2e8f0;--bank-nav:#1a2332;
   --bank-blue:#1e40af;--bank-blue-l:#eff6ff;--bank-gold:#b45309;
@@ -9,15 +22,24 @@
   --hack-txt:#a0ffcc;--hack-mut:#2a6644;
 }
 html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',sans-serif}
+
+/ -----------------------------------------------------
+   Snippet 2/6 - Split Layout & Bank Side Styling
+----------------------------------------------------- /
 .split{display:flex;height:100vh;overflow:hidden}
 .bank-side{width:50%;height:100%;overflow-y:auto;background:var(--bank-bg);border-right:2px solid #0f172a;display:flex;flex-direction:column}
 .hack-side{width:50%;height:100%;overflow-y:auto;background:var(--hack-bg);display:flex;flex-direction:column;font-family:'IBM Plex Mono',monospace}
+
 .split-label{position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:999;background:#0f172a;color:#64748b;font-size:9px;letter-spacing:3px;padding:3px 12px;font-family:'IBM Plex Mono',monospace}
 .bank-topbar{background:var(--bank-nav);color:white;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;flex-shrink:0;position:sticky;top:0;z-index:100}
 .bank-logo-wrap{display:flex;align-items:center;gap:10px}
 .bank-logo-mark{width:34px;height:34px;background:#1e40af;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;letter-spacing:1px}
 .bank-logo-text{font-size:14px;font-weight:600;letter-spacing:1px}
 .bank-logo-sub{font-size:9px;color:#94a3b8;letter-spacing:1px;display:block}
+
+/ -----------------------------------------------------
+   Snippet 3/6 - Sentinel-Grid Button & Login Card
+----------------------------------------------------- /
 .sg-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:2px;font-size:10px;letter-spacing:2px;font-family:'IBM Plex Mono',monospace;cursor:pointer;border:none;font-weight:600;transition:all .2s}
 .sg-pill.off{background:rgba(100,116,139,.2);color:#64748b}
 .sg-pill.on{background:rgba(0,230,118,.1);color:#00e676;border:1px solid rgba(0,230,118,.3)}
@@ -39,6 +61,10 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',sans-serif}
 .bank-btn:hover{background:#1d3a8a}
 .bank-err{font-size:11px;color:var(--bank-red);margin-top:8px;min-height:16px;text-align:center}
 .bank-secure-note{text-align:center;margin-top:16px;font-size:10px;color:var(--bank-muted)}
+
+/ -----------------------------------------------------
+   Snippet 4/6 - Bank Dashboard Navigation & Tables
+----------------------------------------------------- /
 .bank-dash{display:none;flex-direction:column;min-height:calc(100vh - 52px)}
 .bank-dash.visible{display:flex}
 .bank-nav{background:white;border-bottom:1px solid var(--bank-bord);padding:0 20px;display:flex;align-items:center;gap:0;position:sticky;top:52px;z-index:90}
@@ -69,6 +95,10 @@ table.bank-t tr:last-child td{border-bottom:none}
 .badge-active{background:#ecfdf5;color:#059669}.badge-frozen{background:#fef2f2;color:#dc2626}.badge-pending{background:#fffbeb;color:#b45309}
 .badge-current{background:#eff6ff;color:#1e40af}.badge-overdue{background:#fef2f2;color:#dc2626}
 .card-num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px}
+
+/ -----------------------------------------------------
+   Snippet 5/6 - Alert Panels & Security Components
+----------------------------------------------------- /
 .sg-alert-panel{background:#fef2f2;border:1px solid #fecaca;padding:14px 16px;margin-bottom:16px;display:none}
 .sg-alert-panel.visible{display:block}
 .sg-alert-title{font-size:12px;font-weight:600;color:#991b1b;margin-bottom:8px}
@@ -88,6 +118,10 @@ table.bank-t tr:last-child td{border-bottom:none}
 .bank-side::-webkit-scrollbar-thumb{background:#cbd5e1}
 .defense-layer-card{background:#e2e8f0;border-left:3px solid #00e676;padding:10px;margin-bottom:8px;border-radius:4px}
 .defense-layer-card.exhausted{border-left-color:#dc2626;background:#f1f5f9}
+
+/ -----------------------------------------------------
+   Snippet 6/6 - Hacker Console & Modal Styling
+----------------------------------------------------- */
 .hack-topbar{background:#030b07;border-bottom:1px solid var(--hack-bord);padding:0 16px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
 .hack-logo{font-size:13px;font-weight:700;color:var(--hack-grn);letter-spacing:4px}
 .hack-status{font-size:9px;color:var(--hack-mut);letter-spacing:2px}
