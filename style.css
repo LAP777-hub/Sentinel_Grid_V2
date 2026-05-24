@@ -9,3 +9,12 @@
   --hack-txt:#a0ffcc;--hack-mut:#2a6644;
 }
 html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',sans-serif}
+.split{display:flex;height:100vh;overflow:hidden}
+.bank-side{width:50%;height:100%;overflow-y:auto;background:var(--bank-bg);border-right:2px solid #0f172a;display:flex;flex-direction:column}
+.hack-side{width:50%;height:100%;overflow-y:auto;background:var(--hack-bg);display:flex;flex-direction:column;font-family:'IBM Plex Mono',monospace}
+.split-label{position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:999;background:#0f172a;color:#64748b;font-size:9px;letter-spacing:3px;padding:3px 12px;font-family:'IBM Plex Mono',monospace}
+.bank-topbar{background:var(--bank-nav);color:white;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;flex-shrink:0;position:sticky;top:0;z-index:100}
+.bank-logo-wrap{display:flex;align-items:center;gap:10px}
+.bank-logo-mark{width:34px;height:34px;background:#1e40af;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;letter-spacing:1px}
+.bank-logo-text{font-size:14px;font-weight:600;letter-spacing:1px}
+.bank-logo-sub{font-size:9px;color:#94a3b8;letter-spacing:1px;display:block}
