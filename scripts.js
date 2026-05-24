@@ -1,23 +1,8 @@
-// @ts-nocheck
-/* cspell:disable */
 
-/*
-  SENTINEL-GRID V2 — FULL FIXED PROTOTYPE JS
-  Paste this entire file into scripts.js.
-
-  Demo SG approval passphrases:
-  1. Siya-Grid-2026!
-  2. Ora-Vault-2026!
-  3. Lucky-SOC-2026!
-
-  Any 2 of 3 activate Sentinel Grid.
-*/
 
 "use strict";
 
-/* =========================
-   BASE DATA
-========================= */
+
 
 const SA_NAMES = [
     "Sipho Dlamini",
@@ -26,7 +11,6 @@ const SA_NAMES = [
     "Zanele Mokoena",
     "Lungelo Sithole",
     "Precious Mthembu",
-    "Kagiso Molefe",
     "Ayanda Zulu",
     "Lerato Khoza",
     "Bongani Ndlovu",
@@ -57,9 +41,7 @@ const attackTypes = [
     "MFA Fatigue Attack"
 ];
 
-/* =========================
-   STATE
-========================= */
+
 
 let sgActive = false;
 let currentHacker = null;
@@ -76,14 +58,7 @@ let endpointAlerts = 0;
 let layerAttempts = [0, 0, 0, 0, 0];
 let layersExhausted = [false, false, false, false, false];
 
-/* =========================
-   DEMO APPROVAL HASHES
-   These are not readable activation codes.
-   They are hashes of:
-   Siya-Grid-2026!
-   Ora-Vault-2026!
-   Lucky-SOC-2026!
-========================= */
+
 
 const DEMO_APPROVAL_HASHES = [
     "e18262706a87232efbcf0e0ae538b54feff09efb9d593a360f0f4a6e8a638849",
@@ -91,9 +66,7 @@ const DEMO_APPROVAL_HASHES = [
     "e96a29ac9b981462956c09d86bd7c95b2d1a7b889cd926a6052ca9eac63e517b"
 ];
 
-/* =========================
-   ENDPOINT RISK MODEL
-========================= */
+
 
 const endpointCatalog = {
     "/admin/dashboard": {
@@ -164,9 +137,7 @@ Object.keys(endpointCatalog).forEach(function (endpoint) {
     };
 });
 
-/* =========================
-   GENERATED DEMO DATA
-========================= */
+
 
 const CARDS = SA_NAMES.map(function (name) {
     return {
@@ -208,9 +179,6 @@ const HONEY_LOANS = SA_NAMES.map(function (name, index) {
     };
 });
 
-/* =========================
-   UTILS
-========================= */
 
 function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -284,9 +252,7 @@ async function sha256Hex(input) {
         .join("");
 }
 
-/* =========================
-   ENDPOINT + INCIDENT RECORDING
-========================= */
+
 
 function touchEndpoint(endpoint, actor, vector, blocked) {
     if (!endpointState[endpoint]) {
@@ -403,9 +369,7 @@ function logSecurity(message, meta) {
     updateSecurityRecommendations();
 }
 
-/* =========================
-   BANK ADMIN SIDE
-========================= */
+
 
 function bankLogin() {
     bankUser = "System Admin";
@@ -551,9 +515,6 @@ function renderBankData() {
     }
 }
 
-/* =========================
-   HACKER SIDE
-========================= */
 
 function selectActor(code) {
     document.querySelectorAll(".hack-actor-btn").forEach(function (button) {
@@ -635,9 +596,7 @@ function hackTab(name, btn) {
     }
 }
 
-/* =========================
-   SENTINEL GRID ACTIVATION
-========================= */
+
 
 function handleSGButton() {
     if (sgActive) {
@@ -771,9 +730,7 @@ function updateSGUI() {
     }
 }
 
-/* =========================
-   TERMINAL HELPERS
-========================= */
+
 
 function appendMsg(container, text, cls) {
     if (!container) {
@@ -799,9 +756,7 @@ function openAttackTerminal() {
     return body;
 }
 
-/* =========================
-   LAYER ATTACKS
-========================= */
+
 
 function runAttack(layerIndex) {
     if (!currentHacker) {
@@ -932,9 +887,7 @@ function updateLayers() {
     `;
 }
 
-/* =========================
-   AI ATTACK FILTERING
-========================= */
+
 
 function classifyAICommand(command) {
     const text = command.toLowerCase();
@@ -1093,9 +1046,7 @@ function runAIAttack() {
     }, 1200);
 }
 
-/* =========================
-   CARD ATTACK
-========================= */
+
 
 function runCardAttack() {
     if (!currentHacker) {
@@ -1163,9 +1114,6 @@ function runCardAttack() {
     }, 800);
 }
 
-/* =========================
-   LOAN ATTACK
-========================= */
 
 function runLoanAccess() {
     if (!currentHacker) {
@@ -1356,9 +1304,7 @@ function refreshLoanDisplay() {
     makeLoansClickable();
 }
 
-/* =========================
-   PII ATTACK
-========================= */
+
 
 function runPiiAttack() {
     if (!currentHacker) {
@@ -1428,9 +1374,7 @@ function runPiiAttack() {
     }, 800);
 }
 
-/* =========================
-   RECOMMENDATIONS
-========================= */
+
 
 function buildEndpointRiskCards() {
     return Object.keys(endpointCatalog).map(function (endpoint) {
@@ -1593,9 +1537,7 @@ function updateSecurityRecommendations() {
     `;
 }
 
-/* =========================
-   REPORT EXPORT
-========================= */
+
 
 function buildIncidentReport() {
     return {
@@ -1701,9 +1643,7 @@ async function copyIncidentSummary() {
     }
 }
 
-/* =========================
-   PAGE INIT
-========================= */
+
 
 function showPrototypeNotice() {
     if (safeGet("sgPrototypeNotice")) {
@@ -1749,9 +1689,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 2000);
 });
 
-/* =========================
-   EXPOSE FUNCTIONS FOR HTML onclick
-========================= */
+
 
 window.bankLogin = bankLogin;
 window.bankLogout = bankLogout;
