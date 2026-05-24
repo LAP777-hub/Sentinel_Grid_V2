@@ -68,5 +68,30 @@
       <button class="bank-nav-btn" onclick="bankTab('security',this)">Security</button>
     </div>
     <div class="bank-content">
-
       
+            <div class="sg-alert-panel" id="bankAlertPanel">
+        <div class="sg-alert-title">⚠ ACTIVE SECURITY ALERTS</div>
+        <div id="bankAlertList"></div>
+      </div>
+      <div class="sg-rec-panel" id="bankRecPanel">
+        <div class="sg-rec-title">✓ RECOMMENDED ACTIONS</div>
+        <div id="bankRecList"></div>
+      </div>
+      <div class="bank-view active" id="bv-overview">
+        <div class="bank-metrics">
+          <div class="bm"><div class="bm-label">TOTAL DEPOSITS</div><div class="bm-val blue">R 847.3M</div><div class="bm-sub">142 active accounts</div></div>
+          <div class="bm"><div class="bm-label">LOAN BOOK</div><div class="bm-val" id="totalLoanDisplay">R 23.4M</div><div class="bm-sub">37 active loans</div></div>
+          <div class="bm"><div class="bm-label">CARDS ISSUED</div><div class="bm-val green">150</div><div class="bm-sub">12 reported lost</div></div>
+          <div class="bm"><div class="bm-label">SECURITY ALERTS</div><div class="bm-val red" id="alertCountDisplay">0</div><div class="bm-sub">past 24 hours</div></div>
+        </div>
+        <div class="bank-table-wrap">
+          <div class="bank-table-header"><div class="bank-table-title">Recent Transactions</div><div class="bank-table-meta">Last 24 hours</div></div>
+          <table class="bank-t">
+            <thead><tr><th>TIME</th><th>ACCOUNT</th><th>CLIENT</th><th>TYPE</th><th>AMOUNT</th><th>STATUS</th></tr></thead>
+            <tbody>
+              <tr><td>14:32</td><td>PMP-4471-2291</td><td>Sipho Dlamini</td><td>Transfer</td><td>R 12,500.00</td><td><span class="bank-badge badge-active">Completed</span></td></tr>
+              <tr><td>14:18</td><td>PMP-3382-7104</td><td>Nomsa Khumalo</td><td>Withdrawal</td><td>R 3,200.00</td><td><span class="bank-badge badge-active">Completed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
