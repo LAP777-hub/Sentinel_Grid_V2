@@ -69,3 +69,22 @@ table.bank-t tr:last-child td{border-bottom:none}
 .badge-active{background:#ecfdf5;color:#059669}.badge-frozen{background:#fef2f2;color:#dc2626}.badge-pending{background:#fffbeb;color:#b45309}
 .badge-current{background:#eff6ff;color:#1e40af}.badge-overdue{background:#fef2f2;color:#dc2626}
 .card-num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px}
+.sg-alert-panel{background:#fef2f2;border:1px solid #fecaca;padding:14px 16px;margin-bottom:16px;display:none}
+.sg-alert-panel.visible{display:block}
+.sg-alert-title{font-size:12px;font-weight:600;color:#991b1b;margin-bottom:8px}
+.sg-rec-panel{background:#f0fdf4;border:1px solid #bbf7d0;padding:14px 16px;margin-bottom:16px;display:none}
+.sg-rec-panel.visible{display:block}
+.sg-rec-title{font-size:12px;font-weight:600;color:#14532d;margin-bottom:8px}
+.sec-alert-row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.sec-alert-row:last-child{border-bottom:none}
+.sec-alert-time{font-size:10px;color:var(--bank-muted);min-width:52px;font-family:'IBM Plex Mono',monospace}
+.sec-alert-type{display:inline-block;padding:1px 6px;font-size:8px;font-weight:700;letter-spacing:.5px;margin-right:6px}
+.sec-alert-msg{font-size:11px;color:var(--bank-text);flex:1}
+.sec-alert-rec{font-size:10px;color:var(--bank-green);margin-top:3px}
+.sec-alert-type.crit{background:#fef2f2;color:#991b1b}
+.sec-alert-type.warn{background:#fffbeb;color:#92400e}
+.sec-alert-type.info{background:#eff6ff;color:#1e40af}
+.bank-side::-webkit-scrollbar{width:4px}
+.bank-side::-webkit-scrollbar-thumb{background:#cbd5e1}
+.defense-layer-card{background:#e2e8f0;border-left:3px solid #00e676;padding:10px;margin-bottom:8px;border-radius:4px}
+.defense-layer-card.exhausted{border-left-color:#dc2626;background:#f1f5f9}
