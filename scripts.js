@@ -140,3 +140,199 @@ function updateLayers() {
         </div>
     `).join('');
 }
+
+// ======================================================
+// SECTION 3: BANK AUTHENTICATION, NAVIGATION & DASHBOARD DATA
+// ======================================================
+
+function bankLogin() {
+    bankUser = 'Admin';
+
+    const bankLoginWrap = document.getElementById('bankLoginWrap');
+    const bankDash = document.getElementById('bankDash');
+    const sgToggleBtn = document.getElementById('sgToggleBtn');
+    const bankWho = document.getElementById('bankWho');
+
+    if (bankLoginWrap) bankLoginWrap.style.display = 'none';
+    if (bankDash) bankDash.classList.add('visible');
+    if (sgToggleBtn) sgToggleBtn.style.display = 'flex';
+    if (bankWho) bankWho.textContent = 'System Admin';
+
+    updateBankTime();
+    setInterval(updateBankTime, 60000);
+
+    renderBankData();
+    updateLayers();
+
+    logSecurity('✅ Bank administrator logged into dashboard');
+}
+
+function bankLogout() {
+    location.reload();
+}
+
+function updateBankTime() {
+    const bankTime = document.getElementById('bankTime');
+    if (bankTime) {
+        bankTime.textContent = new Date().toLocaleTimeString();
+    }
+}
+
+function bankTab(name, btn) {
+    document.querySelectorAll('.bank-nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.bank-view').forEach(v => v.classList.remove('active'));
+
+    if (btn) btn.classList.add('active');
+
+    const view = document.getElementById('bv-' + name);
+    if (view) view.classList.add('active');
+}
+
+function renderBankData() {
+    const accountsBody = document.getElementById('accountsBody');
+    const cardsBody = document.getElementById('cardsBody');
+    const loansBody = document.getElementById('loansBody');
+    const totalLoanDisplay = document.getElementById('totalLoanDisplay');
+
+    if (accountsBody) {
+        accountsBody.innerHTML = SA_NAMES.slice(0, 10).map(n => `
+            <tr>
+                <td>PMP-${rand(1000, 9999)}</td>
+                <td>${n}</td>
+                <td>${fmtRand(rand(5000, 500000))}</td>
+                <td>Cheque</td>
+                <td>Active</td>
+            </tr>
+        `).join('');
+    }
+
+    if (cardsBody) {
+        cardsBody.innerHTML = CARDS.map(c => `
+            <tr>
+                <td>${c.name}</td>
+                <td>${c.num}</td>
+                <td>${c.expiry}</td>
+                <td>${c.cvv}</td>
+                <td>${fmtRand(c.limit)}</td>
+                <td>${fmtRand(rand(500, c.limit))}</td>
+            </tr>
+        `).join('');
+    }
+
+    if (loansBody) {
+        loansBody.innerHTML = LOANS.map(l => `
+            <tr>
+                <td>${l.name}</td>
+                <td>${l.type}</td>
+                <td>${fmtRand(l.originalAmount)}</td>
+                <td>${l.erased ? 'R 0.00' : fmtRand(l.balance)}</td>
+                <td>${fmtRand(rand(2000, 10000))}</td>
+                <td>${l.erased ? 'ERASED' : 'Current'}</td>
+            </tr>
+        `).join('');
+    }
+
+    if (totalLoanDisplay) {
+        totalLoanDisplay.textContent = fmtRand(
+            LOANS.reduce((a, b) => a + (b.erased ? 0 : b.balance), 0)
+        );
+    }
+}
+
+// ======================================================
+// SECTION 3: BANK AUTHENTICATION, NAVIGATION & DASHBOARD DATA
+// ======================================================
+
+function bankLogin() {
+    bankUser = 'Admin';
+
+    const bankLoginWrap = document.getElementById('bankLoginWrap');
+    const bankDash = document.getElementById('bankDash');
+    const sgToggleBtn = document.getElementById('sgToggleBtn');
+    const bankWho = document.getElementById('bankWho');
+
+    if (bankLoginWrap) bankLoginWrap.style.display = 'none';
+    if (bankDash) bankDash.classList.add('visible');
+    if (sgToggleBtn) sgToggleBtn.style.display = 'flex';
+    if (bankWho) bankWho.textContent = 'System Admin';
+
+    updateBankTime();
+    setInterval(updateBankTime, 60000);
+
+    renderBankData();
+    updateLayers();
+
+    logSecurity('✅ Bank administrator logged into dashboard');
+}
+
+function bankLogout() {
+    location.reload();
+}
+
+function updateBankTime() {
+    const bankTime = document.getElementById('bankTime');
+    if (bankTime) {
+        bankTime.textContent = new Date().toLocaleTimeString();
+    }
+}
+
+function bankTab(name, btn) {
+    document.querySelectorAll('.bank-nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.bank-view').forEach(v => v.classList.remove('active'));
+
+    if (btn) btn.classList.add('active');
+
+    const view = document.getElementById('bv-' + name);
+    if (view) view.classList.add('active');
+}
+
+function renderBankData() {
+    const accountsBody = document.getElementById('accountsBody');
+    const cardsBody = document.getElementById('cardsBody');
+    const loansBody = document.getElementById('loansBody');
+    const totalLoanDisplay = document.getElementById('totalLoanDisplay');
+
+    if (accountsBody) {
+        accountsBody.innerHTML = SA_NAMES.slice(0, 10).map(n => `
+            <tr>
+                <td>PMP-${rand(1000, 9999)}</td>
+                <td>${n}</td>
+                <td>${fmtRand(rand(5000, 500000))}</td>
+                <td>Cheque</td>
+                <td>Active</td>
+            </tr>
+        `).join('');
+    }
+
+    if (cardsBody) {
+        cardsBody.innerHTML = CARDS.map(c => `
+            <tr>
+                <td>${c.name}</td>
+                <td>${c.num}</td>
+                <td>${c.expiry}</td>
+                <td>${c.cvv}</td>
+                <td>${fmtRand(c.limit)}</td>
+                <td>${fmtRand(rand(500, c.limit))}</td>
+            </tr>
+        `).join('');
+    }
+
+    if (loansBody) {
+        loansBody.innerHTML = LOANS.map(l => `
+            <tr>
+                <td>${l.name}</td>
+                <td>${l.type}</td>
+                <td>${fmtRand(l.originalAmount)}</td>
+                <td>${l.erased ? 'R 0.00' : fmtRand(l.balance)}</td>
+                <td>${fmtRand(rand(2000, 10000))}</td>
+                <td>${l.erased ? 'ERASED' : 'Current'}</td>
+            </tr>
+        `).join('');
+    }
+
+    if (totalLoanDisplay) {
+        totalLoanDisplay.textContent = fmtRand(
+            LOANS.reduce((a, b) => a + (b.erased ? 0 : b.balance), 0)
+        );
+    }
+}
