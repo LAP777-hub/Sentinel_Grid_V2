@@ -1,56 +1,665 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PMP Bank — SENTINEL-GRID Prototype</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PMP Bank — SENTINEL-GRID Prototype</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ============================================ -->
+    <!-- SECTION: Top Label (Split screen indicator)   -->
+    <!-- Shows which side is bank vs hacker console    -->
+    <!-- ============================================ -->
+    <div class="split-label">◀ PMP BANK SYSTEM | HACKER CONSOLE ▶</div>
 
-
-   <div class="split-label">◀ PMP BANK SYSTEM | HACKER CONSOLE ▶</div>
-<div class="sg-modal-bg" id="sgModal">
-  <div class="sg-modal">
-    <div class="sg-modal-title">⬡ SENTINEL-GRID ACTIVATION</div>
-    <div class="sg-modal-field"><label>SIYA — ADMIN 01</label><input type="password" id="sgC1" placeholder="Admin code"></div>
-    <div class="sg-modal-field"><label>ORA — ADMIN 02</label><input type="password" id="sgC2" placeholder="Admin code"></div>
-    <div class="sg-modal-field"><label>LUCKY — ADMIN 03</label><input type="password" id="sgC3" placeholder="Admin code"></div>
-    <div class="sg-modal-hint">MINIMUM 2 OF 3 REQUIRED | DEMO CODES: SG-ALPHA-01 / SG-BRAVO-02 / SG-DELTA-03</div>
-    <div class="sg-modal-btns">
-      <button class="sg-modal-btn cancel" onclick="closeSgModal()">CANCEL</button>
-      <button class="sg-modal-btn" onclick="activateSG()">ACTIVATE</button>
-    </div>
-    <div class="sg-modal-err" id="sgErr"></div>
-  </div>
-</div>
-<div class="split">
-
-    <div class="bank-side">
-  <div class="bank-topbar">
-    <div class="bank-logo-wrap">
-      <div class="bank-logo-mark">PMP</div>
-      <div>
-        <div class="bank-logo-text">PMP Bank</div>
-        <span class="bank-logo-sub">STAFF SECURE PORTAL</span>
+    <!-- ============================================ -->
+    <!-- SECTION: Sentinel-Grid Modal                  -->
+    /* Popup window for activating honeypot protection
+       Requires 2 of 3 admin codes to activate        */
+    <!-- ============================================ -->
+    <div class="sg-modal-bg" id="sgModal">
+      <div class="sg-modal">
+        <div class="sg-modal-title">⬡ SENTINEL-GRID ACTIVATION</div>
+        <div class="sg-modal-field">
+          <label>SIYA — ADMIN 01</label
+          ><input type="password" id="sgC1" placeholder="Admin code" />
+        </div>
+        <div class="sg-modal-field">
+          <label>ORA — ADMIN 02</label
+          ><input type="password" id="sgC2" placeholder="Admin code" />
+        </div>
+        <div class="sg-modal-field">
+          <label>LUCKY — ADMIN 03</label
+          ><input type="password" id="sgC3" placeholder="Admin code" />
+        </div>
+        <div class="sg-modal-hint">
+          MINIMUM 2 OF 3 REQUIRED | DEMO CODES: SG-ALPHA-01 / SG-BRAVO-02 /
+          SG-DELTA-03
+        </div>
+        <div class="sg-modal-btns">
+          <button class="sg-modal-btn cancel" onclick="closeSgModal()">
+            CANCEL
+          </button>
+          <button class="sg-modal-btn" onclick="activateSG()">ACTIVATE</button>
+        </div>
+        <div class="sg-modal-err" id="sgErr"></div>
       </div>
     </div>
-    <button class="sg-pill off" id="sgToggleBtn" onclick="handleSGButton()" style="display:none">
-      <div class="sg-dot"></div>
-      <span id="sgPillText">SENTINEL-GRID OFF</span>
-    </button>
-  </div>
-  <div class="bank-login-wrap" id="bankLoginWrap">
-    <div class="bank-login-card">
-      <div class="bank-login-logo">
-        <div class="bank-login-mark">PMP</div>
-        <div class="bank-login-title">PMP Bank</div>
-        <div class="bank-login-sub">Staff Login — Authorised Personnel Only</div>
+
+    <!-- ============================================ -->
+    <!-- SECTION: Main Split Layout                    -->
+    /* Two-column layout: Left = Bank, Right = Hacker  */
+    <!-- ============================================ -->
+    <div class="split">
+      <!-- ============================================ -->
+      <!-- LEFT SIDE: Bank Staff Interface              -->
+      <!-- ============================================ -->
+      <div class="bank-side">
+        <!-- Bank Top Bar: Logo + Sentinel-Grid toggle button -->
+        <div class="bank-topbar">
+          <div class="bank-logo-wrap">
+            <div class="bank-logo-mark">PMP</div>
+            <div>
+              <div class="bank-logo-text">PMP Bank</div>
+              <span class="bank-logo-sub">STAFF SECURE PORTAL</span>
+            </div>
+          </div>
+          <!-- SG Toggle button (hidden until login) -->
+          <button
+            class="sg-pill off"
+            id="sgToggleBtn"
+            onclick="handleSGButton()"
+            style="display: none"
+          >
+            <div class="sg-dot"></div>
+            <span id="sgPillText">SENTINEL-GRID OFF</span>
+          </button>
+        </div>
+
+        <!-- Bank Login Form (visible before login) -->
+        <div class="bank-login-wrap" id="bankLoginWrap">
+          <div class="bank-login-card">
+            <div class="bank-login-logo">
+              <div class="bank-login-mark">PMP</div>
+              <div class="bank-login-title">PMP Bank</div>
+              <div class="bank-login-sub">
+                Staff Login — Authorised Personnel Only
+              </div>
+            </div>
+            <div class="bank-field">
+              <label>USERNAME</label
+              ><input
+                type="text"
+                id="bankUser"
+                value="admin"
+                autocomplete="off"
+              />
+            </div>
+            <div class="bank-field">
+              <label>PASSWORD</label
+              ><input
+                type="password"
+                id="bankPass"
+                placeholder="Password"
+                onkeydown="if (event.key === 'Enter') bankLogin();"
+              />
+            </div>
+            <button class="bank-btn" onclick="bankLogin()">Sign In</button>
+            <div class="bank-err" id="bankErr"></div>
+            <div class="bank-secure-note">
+              All sessions are monitored and recorded
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank Dashboard (visible after login) -->
+        <div class="bank-dash" id="bankDash">
+          <!-- User info bar with logout button -->
+          <div class="bank-user-bar">
+            <div class="bank-user-info">
+              Logged in as <strong id="bankWho">—</strong> | Branch: Head Office
+              | <span id="bankTime"></span>
+            </div>
+            <button class="bank-logout" onclick="bankLogout()">Log Out</button>
+          </div>
+
+          <!-- Navigation tabs for dashboard views -->
+          <div class="bank-nav">
+            <button
+              class="bank-nav-btn active"
+              onclick="bankTab('overview', this)"
+            >
+              Dashboard
+            </button>
+            <button class="bank-nav-btn" onclick="bankTab('accounts', this)">
+              Accounts
+            </button>
+            <button class="bank-nav-btn" onclick="bankTab('cards', this)">
+              Credit Cards
+            </button>
+            <button class="bank-nav-btn" onclick="bankTab('loans', this)">
+              Loans
+            </button>
+            <button class="bank-nav-btn" onclick="bankTab('security', this)">
+              Security
+            </button>
+          </div>
+
+          <!-- Main content area (switches based on active tab) -->
+          <div class="bank-content">
+            <!-- Alert panel for critical security events -->
+            <div class="sg-alert-panel" id="bankAlertPanel">
+              <div class="sg-alert-title">⚠ ACTIVE SECURITY ALERTS</div>
+              <div id="bankAlertList"></div>
+            </div>
+
+            <!-- Recommendations panel for SOC team actions -->
+            <div class="sg-rec-panel" id="bankRecPanel">
+              <div class="sg-rec-title">✓ RECOMMENDED ACTIONS</div>
+              <div id="bankRecList"></div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 1: Overview Dashboard
+               Shows key metrics and recent transactions     */
+            <!-- ======================================== -->
+            <div class="bank-view active" id="bv-overview">
+              <!-- KPI Metrics Cards -->
+              <div class="bank-metrics">
+                <div class="bm">
+                  <div class="bm-label">TOTAL DEPOSITS</div>
+                  <div class="bm-val blue">R 847.3M</div>
+                  <div class="bm-sub">142 active accounts</div>
+                </div>
+                <div class="bm">
+                  <div class="bm-label">LOAN BOOK</div>
+                  <div class="bm-val" id="totalLoanDisplay">R 23.4M</div>
+                  <div class="bm-sub">37 active loans</div>
+                </div>
+                <div class="bm">
+                  <div class="bm-label">CARDS ISSUED</div>
+                  <div class="bm-val green">150</div>
+                  <div class="bm-sub">12 reported lost</div>
+                </div>
+                <div class="bm">
+                  <div class="bm-label">SECURITY ALERTS</div>
+                  <div class="bm-val red" id="alertCountDisplay">0</div>
+                  <div class="bm-sub">past 24 hours</div>
+                </div>
+              </div>
+
+              <!-- Recent Transactions Table (static sample data) -->
+              <div class="bank-table-wrap">
+                <div class="bank-table-header">
+                  <div class="bank-table-title">Recent Transactions</div>
+                  <div class="bank-table-meta">Last 24 hours</div>
+                </div>
+                <table class="bank-t">
+                  <thead>
+                    <tr>
+                      <th>TIME</th>
+                      <th>ACCOUNT</th>
+                      <th>CLIENT</th>
+                      <th>TYPE</th>
+                      <th>AMOUNT</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>14:32</td>
+                      <td>PMP-4471-2291</td>
+                      <td>Sipho Dlamini</td>
+                      <td>Transfer</td>
+                      <td>R 12,500.00</td>
+                      <td>
+                        <span class="bank-badge badge-active">Completed</span>
+                       </td>
+                    </tr>
+                    <tr>
+                      <td>14:18</td>
+                      <td>PMP-3382-7104</td>
+                      <td>Nomsa Khumalo</td>
+                      <td>Withdrawal</td>
+                      <td>R 3,200.00</td>
+                      <td>
+                        <span class="bank-badge badge-active">Completed</span>
+                       </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 2: Client Accounts
+               Dynamic table populated by JavaScript        */
+            <!-- ======================================== -->
+            <div class="bank-view" id="bv-accounts">
+              <div class="bank-table-wrap">
+                <div class="bank-table-header">
+                  <div class="bank-table-title">Client Accounts</div>
+                  <div class="bank-table-meta">150 clients</div>
+                </div>
+                <table class="bank-t" id="accountsTable">
+                  <thead>
+                    <tr>
+                      <th>ACCOUNT NO.</th>
+                      <th>CLIENT NAME</th>
+                      <th>BALANCE</th>
+                      <th>TYPE</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody id="accountsBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 3: Credit Cards
+               Dynamic table populated by JavaScript        */
+            <!-- ======================================== -->
+            <div class="bank-view" id="bv-cards">
+              <div class="bank-table-wrap">
+                <div class="bank-table-header">
+                  <div class="bank-table-title">Credit Card Accounts</div>
+                  <div class="bank-table-meta">150 cards</div>
+                </div>
+                <table class="bank-t" id="cardsTable">
+                  <thead>
+                    <tr>
+                      <th>CLIENT NAME</th>
+                      <th>CARD NUMBER</th>
+                      <th>EXPIRY</th>
+                      <th>CVV</th>
+                      <th>LIMIT</th>
+                      <th>BALANCE</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cardsBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 4: Loans
+               Dynamic table populated by JavaScript        */
+            <!-- ======================================== -->
+            <div class="bank-view" id="bv-loans">
+              <div class="bank-table-wrap">
+                <div class="bank-table-header">
+                  <div class="bank-table-title">Active Loans</div>
+                  <div class="bank-table-meta">37 loans</div>
+                </div>
+                <table class="bank-t" id="loansTable">
+                  <thead>
+                    <tr>
+                      <th>CLIENT NAME</th>
+                      <th>LOAN TYPE</th>
+                      <th>ORIGINAL AMT</th>
+                      <th>BALANCE</th>
+                      <th>MONTHLY</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody id="loansBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 5: Security Monitoring
+               Shows attack logs, defense layers, and SOC recommendations */
+            <!-- ======================================== -->
+            <div class="bank-view" id="bv-security">
+              <!-- Security metrics counters -->
+              <div class="bank-metrics">
+                <div class="bm">
+                  <div class="bm-label">ATTACKS DETECTED</div>
+                  <div class="bm-val red" id="secAttackCount">0</div>
+                  <div class="bm-sub">total logged</div>
+                </div>
+                <div class="bm">
+                  <div class="bm-label">DATA COMPROMISED</div>
+                  <div class="bm-val red" id="secDataComp">None</div>
+                  <div class="bm-sub">all data secure</div>
+                </div>
+                <div class="bm">
+                  <div class="bm-label">SG TRAPPED</div>
+                  <div class="bm-val green" id="secTrapped">0</div>
+                  <div class="bm-sub">honeypot catches</div>
+                </div>
+                <div class="bm">
+                  <div class="bm-label">LOANS ERASED</div>
+                  <div class="bm-val red" id="secLoansErased">0</div>
+                  <div class="bm-sub">by attacker</div>
+                </div>
+              </div>
+
+              <!-- Defense layer status cards (5 security layers) -->
+              <div class="bank-table-wrap">
+                <div class="bank-table-header">
+                  <div class="bank-table-title">DEFENSE LAYER STATUS</div>
+                  <div class="bank-table-meta">Real-time breach attempts</div>
+                </div>
+                <div id="defenseLayersContainer" style="padding: 12px"></div>
+              </div>
+
+              <!-- Security event log (chronological attack records) -->
+              <div class="bank-table-wrap">
+                <div class="bank-table-header">
+                  <div class="bank-table-title">Security Event Log</div>
+                  <div class="bank-table-meta">0 events</div>
+                </div>
+                <div style="padding: 14px" id="secLogBody">
+                  <div style="text-align: center; padding: 20px">
+                    No security events recorded
+                  </div>
+                </div>
+              </div>
+
+              <!-- SOC Recommendations (while honeypots stall attacker) -->
+              <div class="bank-table-wrap">
+                <div class="bank-table-header">
+                  <div class="bank-table-title">
+                    🚨 SECURITY TEAM RECOMMENDATIONS (While Honeypots Stall
+                    Attacker)
+                  </div>
+                </div>
+                <div style="padding: 14px" id="recActionBody">
+                  <div style="text-align: center; padding: 20px">
+                    No active recommendations
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="bank-field"><label>USERNAME</label><input type="text" id="bankUser" value="admin" autocomplete="off"></div>
-      <div class="bank-field"><label>PASSWORD</label><input type="password" id="bankPass" placeholder="Password" onkeydown="if(event.key==='Enter')bankLogin()"></div>
-      <button class="bank-btn" onclick="bankLogin()">Sign In</button>
-      <div class="bank-err" id="bankErr"></div>
-      <div class="bank-secure-note">All sessions are monitored and recorded</div>
+
+      <!-- ============================================ -->
+      <!-- RIGHT SIDE: Hacker Console Interface         -->
+      /* Simulates attacker actions against the bank     */
+      <!-- ============================================ -->
+      <div class="hack-side">
+        <!-- Hacker Top Bar -->
+        <div class="hack-topbar">
+          <div class="hack-logo">◈ THREAT CONSOLE</div>
+          <div class="hack-status" id="hackTopStatus">DORMANT</div>
+        </div>
+
+        <!-- Hacker Login Form (select threat actor) -->
+        <div class="hack-login-wrap" id="hackLoginWrap">
+          <div class="hack-login-box">
+            <div class="hack-actors">
+              <div class="attack-section-title">SELECT THREAT ACTOR</div>
+              <!-- Three attacker profiles with different specialties -->
+              <button
+                class="hack-actor-btn"
+                onclick="selectActor('GHOST_7')"
+                id="actor-GHOST_7"
+              >
+                <span class="hack-actor-code">GHOST_7</span
+                ><span class="hack-actor-type"
+                  >Credential Theft · Card Skimming</span
+                >
+              </button>
+              <button
+                class="hack-actor-btn"
+                onclick="selectActor('ZERO_D')"
+                id="actor-ZERO_D"
+              >
+                <span class="hack-actor-code">ZERO_D</span
+                ><span class="hack-actor-type"
+                  >SQL Injection · Loan Manipulation</span
+                >
+              </button>
+              <button
+                class="hack-actor-btn"
+                onclick="selectActor('PHANTOM_T')"
+                id="actor-PHANTOM_T"
+              >
+                <span class="hack-actor-code">PHANTOM_T</span
+                ><span class="hack-actor-type"
+                  >AI-Driven Mass Exfiltration</span
+                >
+              </button>
+            </div>
+            <button class="hack-enter-btn" onclick="hackLogin()">
+              ▶ ENTER SYSTEM
+            </button>
+            <div class="hack-err" id="hackErr"></div>
+          </div>
+        </div>
+
+        <!-- Hacker Dashboard (visible after login) -->
+        <div class="hack-dash" id="hackDash">
+          <!-- Who bar shows active hacker identity and SG status -->
+          <div class="hack-who-bar">
+            <div class="hack-who" id="hackWhoLabel">—</div>
+            <div>
+              <div class="hack-sg-indicator off" id="hackSgIndicator">
+                SG: INACTIVE
+              </div>
+              <button class="hack-who-exit" onclick="hackLogout()">EXIT</button>
+            </div>
+          </div>
+
+          <!-- Hacker navigation tabs -->
+          <div class="hack-tabs">
+            <button class="hack-tab active" onclick="hackTab('attack', this)">
+              ATTACK
+            </button>
+            <button class="hack-tab" onclick="hackTab('cards', this)">
+              CARD DATA
+            </button>
+            <button class="hack-tab" onclick="hackTab('loans', this)">
+              LOAN MANIP.
+            </button>
+            <button class="hack-tab" onclick="hackTab('pii', this)">
+              CLIENT PII
+            </button>
+          </div>
+
+          <!-- Hacker content area (switches based on active tab) -->
+          <div class="hack-content">
+            <!-- ======================================== -->
+            /* TAB 1: Attack Vectors
+               Five security layers to breach sequentially   */
+            <!-- ======================================== -->
+            <div class="hack-view active" id="hv-attack">
+              <div class="attack-section-title">ATTACK VECTORS</div>
+              <!-- Layer 1: Perimeter Firewall -->
+              <button class="attack-btn" onclick="runAttack(0)">
+                <span class="attack-btn-name">
+                  LAYER 1: Perimeter Firewall</span
+                >
+              </button>
+              <!-- Layer 2: WAF / SQLi Filter -->
+              <button class="attack-btn" onclick="runAttack(1)">
+                <span class="attack-btn-name"> LAYER 2: WAF / SQLi Filter</span>
+              </button>
+              <!-- Layer 3: API Gateway Auth -->
+              <button class="attack-btn" onclick="runAttack(2)">
+                <span class="attack-btn-name"> LAYER 3: API Gateway Auth</span>
+              </button>
+              <!-- Layer 4: DB Access Control -->
+              <button class="attack-btn" onclick="runAttack(3)">
+                <span class="attack-btn-name"> LAYER 4: DB Access Control</span>
+              </button>
+              <!-- Layer 5: Admin MFA Bypass -->
+              <button class="attack-btn" onclick="runAttack(4)">
+                <span class="attack-btn-name"> LAYER 5: Admin MFA Bypass</span>
+              </button>
+
+              <!-- AI-powered attack input -->
+              <div class="ai-attack-area">
+                <div class="attack-section-title">🤖 AI ATTACK</div>
+                <input
+                  type="text"
+                  id="aiCommand"
+                  class="ai-input"
+                  placeholder="Describe your attack..."
+                />
+                <button
+                  class="attack-btn"
+                  onclick="runAIAttack()"
+                  style="border-color: #00ffcc"
+                >
+                  🚀 EXECUTE AI
+                </button>
+              </div>
+
+              <!-- Terminal output for attack logs -->
+              <div
+                id="attackTerminal"
+                class="terminal-wrap"
+                style="display: none"
+              >
+                <div class="terminal-bar">
+                  <span>ATTACK LOG</span
+                  ><button
+                    onclick="
+                      document.getElementById('attackTermBody').innerHTML = '';
+                      this.parentElement.parentElement.style.display = 'none';
+                    "
+                  >
+                    CLEAR
+                  </button>
+                </div>
+                <div class="terminal-body" id="attackTermBody"></div>
+              </div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 2: Card Data Extraction
+               Steals credit card information (real or honeypot) */
+            <!-- ======================================== -->
+            <div class="hack-view" id="hv-cards">
+              <div class="attack-section-title">CARD VAULT EXFILTRATION</div>
+              <button class="attack-btn" onclick="runCardAttack()">
+                💳 EXTRACT CARD DATA
+              </button>
+              <div
+                id="cardTerminal"
+                class="terminal-wrap"
+                style="display: none"
+              >
+                <div class="terminal-bar">
+                  <span>CARD EXFIL</span
+                  ><button
+                    onclick="
+                      document.getElementById('cardTermBody').innerHTML = '';
+                      this.parentElement.parentElement.style.display = 'none';
+                    "
+                  >
+                    CLEAR
+                  </button>
+                </div>
+                <div class="terminal-body" id="cardTermBody"></div>
+              </div>
+              <!-- Display extracted cards -->
+              <div id="cardResults" style="display: none; margin-top: 10px">
+                <div class="hack-result-title">EXTRACTED CARDS</div>
+                <div style="overflow-x: auto">
+                  <table class="hack-result-table" id="cardTable">
+                    <thead>
+                      <tr>
+                        <th>NAME</th>
+                        <th>CARD NUMBER</th>
+                        <th>EXPIRY</th>
+                        <th>CVV</th>
+                        <th>LIMIT</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cardTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 3: Loan Manipulation
+               Access, reduce, clear, or erase loan records   */
+            <!-- ======================================== -->
+            <div class="hack-view" id="hv-loans">
+              <div class="attack-section-title">LOAN MANIPULATION</div>
+              <button class="attack-btn" onclick="runLoanAccess()">
+                🏦 ACCESS LOAN DATABASE
+              </button>
+              <div
+                id="loanTerminal"
+                class="terminal-wrap"
+                style="display: none"
+              >
+                <div class="terminal-bar">
+                  <span>LOAN ACCESS</span
+                  ><button
+                    onclick="
+                      document.getElementById('loanTermBody').innerHTML = '';
+                      this.parentElement.parentElement.style.display = 'none';
+                    "
+                  >
+                    CLEAR
+                  </button>
+                </div>
+                <div class="terminal-body" id="loanTermBody"></div>
+              </div>
+              <!-- Display loan records with manipulation buttons -->
+              <div id="loanResults" style="display: none; margin-top: 10px">
+                <div class="hack-result-title">LOAN RECORDS</div>
+                <div id="loanList"></div>
+              </div>
+            </div>
+
+            <!-- ======================================== -->
+            /* TAB 4: PII Extraction
+               Steals personal identifiable information       */
+            <!-- ======================================== -->
+            <div class="hack-view" id="hv-pii">
+              <div class="attack-section-title">CLIENT PII DUMP</div>
+              <button class="attack-btn" onclick="runPiiAttack()">
+                📁 EXTRACT PII DATA
+              </button>
+              <div id="piiTerminal" class="terminal-wrap" style="display: none">
+                <div class="terminal-bar">
+                  <span>PII EXFIL</span
+                  ><button
+                    onclick="
+                      document.getElementById('piiTermBody').innerHTML = '';
+                      this.parentElement.parentElement.style.display = 'none';
+                    "
+                  >
+                    CLEAR
+                  </button>
+                </div>
+                <div class="terminal-body" id="piiTermBody"></div>
+              </div>
+              <!-- Display extracted PII records -->
+              <div id="piiResults" style="display: none; margin-top: 10px">
+                <div class="hack-result-title">CLIENT PII</div>
+                <div>
+                  <table class="hack-result-table" id="piiTable">
+                    <thead>
+                      <tr>
+                        <th>NAME</th>
+                        <th>ID</th>
+                        <th>EMAIL</th>
+                        <th>PHONE</th>
+                      </tr>
+                    </thead>
+                    <tbody id="piiTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+    <script src="scripts.js"></script>
+  </body>
+</html>
