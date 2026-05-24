@@ -7,17 +7,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- ============================================ -->
-    <!-- SECTION: Top Label (Split screen indicator)   -->
-    <!-- Shows which side is bank vs hacker console    -->
-    <!-- ============================================ -->
+   
     <div class="split-label">◀ PMP BANK SYSTEM | HACKER CONSOLE ▶</div>
 
-    <!-- ============================================ -->
-    <!-- SECTION: Sentinel-Grid Modal                  -->
-    /* Popup window for activating honeypot protection
-       Requires 2 of 3 admin codes to activate        */
-    <!-- ============================================ -->
     <div class="sg-modal-bg" id="sgModal">
       <div class="sg-modal">
         <div class="sg-modal-title">⬡ SENTINEL-GRID ACTIVATION</div>
@@ -47,16 +39,12 @@
       </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- SECTION: Main Split Layout                    -->
-    /* Two-column layout: Left = Bank, Right = Hacker  */
-    <!-- ============================================ -->
+   
     <div class="split">
-      <!-- ============================================ -->
-      <!-- LEFT SIDE: Bank Staff Interface              -->
-      <!-- ============================================ -->
+     
+     
       <div class="bank-side">
-        <!-- Bank Top Bar: Logo + Sentinel-Grid toggle button -->
+      
         <div class="bank-topbar">
           <div class="bank-logo-wrap">
             <div class="bank-logo-mark">PMP</div>
@@ -65,7 +53,7 @@
               <span class="bank-logo-sub">STAFF SECURE PORTAL</span>
             </div>
           </div>
-          <!-- SG Toggle button (hidden until login) -->
+         
           <button
             class="sg-pill off"
             id="sgToggleBtn"
@@ -77,7 +65,7 @@
           </button>
         </div>
 
-        <!-- Bank Login Form (visible before login) -->
+     
         <div class="bank-login-wrap" id="bankLoginWrap">
           <div class="bank-login-card">
             <div class="bank-login-logo">
@@ -113,7 +101,7 @@
           </div>
         </div>
 
-        <!-- Bank Dashboard (visible after login) -->
+       
         <div class="bank-dash" id="bankDash">
           <!-- User info bar with logout button -->
           <div class="bank-user-bar">
@@ -124,7 +112,7 @@
             <button class="bank-logout" onclick="bankLogout()">Log Out</button>
           </div>
 
-          <!-- Navigation tabs for dashboard views -->
+         
           <div class="bank-nav">
             <button
               class="bank-nav-btn active"
@@ -146,7 +134,7 @@
             </button>
           </div>
 
-          <!-- Main content area (switches based on active tab) -->
+         
           <div class="bank-content">
             <!-- Alert panel for critical security events -->
             <div class="sg-alert-panel" id="bankAlertPanel">
@@ -160,10 +148,7 @@
               <div id="bankRecList"></div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 1: Overview Dashboard
-               Shows key metrics and recent transactions     */
-            <!-- ======================================== -->
+          
             <div class="bank-view active" id="bv-overview">
               <!-- KPI Metrics Cards -->
               <div class="bank-metrics">
@@ -232,10 +217,7 @@
               </div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 2: Client Accounts
-               Dynamic table populated by JavaScript        */
-            <!-- ======================================== -->
+        
             <div class="bank-view" id="bv-accounts">
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
@@ -257,10 +239,7 @@
               </div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 3: Credit Cards
-               Dynamic table populated by JavaScript        */
-            <!-- ======================================== -->
+
             <div class="bank-view" id="bv-cards">
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
@@ -284,10 +263,9 @@
               </div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 4: Loans
-               Dynamic table populated by JavaScript        */
-            <!-- ======================================== -->
+        
+          
+            
             <div class="bank-view" id="bv-loans">
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
@@ -310,12 +288,9 @@
               </div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 5: Security Monitoring
-               Shows attack logs, defense layers, and SOC recommendations */
-            <!-- ======================================== -->
+           
             <div class="bank-view" id="bv-security">
-              <!-- Security metrics counters -->
+            
               <div class="bank-metrics">
                 <div class="bm">
                   <div class="bm-label">ATTACKS DETECTED</div>
@@ -339,7 +314,6 @@
                 </div>
               </div>
 
-              <!-- Defense layer status cards (5 security layers) -->
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
                   <div class="bank-table-title">DEFENSE LAYER STATUS</div>
@@ -348,7 +322,7 @@
                 <div id="defenseLayersContainer" style="padding: 12px"></div>
               </div>
 
-              <!-- Security event log (chronological attack records) -->
+             
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
                   <div class="bank-table-title">Security Event Log</div>
@@ -361,7 +335,7 @@
                 </div>
               </div>
 
-              <!-- SOC Recommendations (while honeypots stall attacker) -->
+            
               <div class="bank-table-wrap">
                 <div class="bank-table-header">
                   <div class="bank-table-title">
@@ -380,10 +354,7 @@
         </div>
       </div>
 
-      <!-- ============================================ -->
-      <!-- RIGHT SIDE: Hacker Console Interface         -->
-      /* Simulates attacker actions against the bank     */
-      <!-- ============================================ -->
+      
       <div class="hack-side">
         <!-- Hacker Top Bar -->
         <div class="hack-topbar">
@@ -391,12 +362,12 @@
           <div class="hack-status" id="hackTopStatus">DORMANT</div>
         </div>
 
-        <!-- Hacker Login Form (select threat actor) -->
+      
         <div class="hack-login-wrap" id="hackLoginWrap">
           <div class="hack-login-box">
             <div class="hack-actors">
               <div class="attack-section-title">SELECT THREAT ACTOR</div>
-              <!-- Three attacker profiles with different specialties -->
+              
               <button
                 class="hack-actor-btn"
                 onclick="selectActor('GHOST_7')"
@@ -435,7 +406,7 @@
           </div>
         </div>
 
-        <!-- Hacker Dashboard (visible after login) -->
+        
         <div class="hack-dash" id="hackDash">
           <!-- Who bar shows active hacker identity and SG status -->
           <div class="hack-who-bar">
@@ -448,7 +419,7 @@
             </div>
           </div>
 
-          <!-- Hacker navigation tabs -->
+        
           <div class="hack-tabs">
             <button class="hack-tab active" onclick="hackTab('attack', this)">
               ATTACK
@@ -464,38 +435,38 @@
             </button>
           </div>
 
-          <!-- Hacker content area (switches based on active tab) -->
+        
           <div class="hack-content">
-            <!-- ======================================== -->
+           
             /* TAB 1: Attack Vectors
                Five security layers to breach sequentially   */
-            <!-- ======================================== -->
+          
             <div class="hack-view active" id="hv-attack">
               <div class="attack-section-title">ATTACK VECTORS</div>
-              <!-- Layer 1: Perimeter Firewall -->
+            
               <button class="attack-btn" onclick="runAttack(0)">
                 <span class="attack-btn-name">
                   LAYER 1: Perimeter Firewall</span
                 >
               </button>
-              <!-- Layer 2: WAF / SQLi Filter -->
+             
               <button class="attack-btn" onclick="runAttack(1)">
                 <span class="attack-btn-name"> LAYER 2: WAF / SQLi Filter</span>
               </button>
-              <!-- Layer 3: API Gateway Auth -->
+             
               <button class="attack-btn" onclick="runAttack(2)">
                 <span class="attack-btn-name"> LAYER 3: API Gateway Auth</span>
               </button>
-              <!-- Layer 4: DB Access Control -->
+              
               <button class="attack-btn" onclick="runAttack(3)">
                 <span class="attack-btn-name"> LAYER 4: DB Access Control</span>
               </button>
-              <!-- Layer 5: Admin MFA Bypass -->
+            
               <button class="attack-btn" onclick="runAttack(4)">
                 <span class="attack-btn-name"> LAYER 5: Admin MFA Bypass</span>
               </button>
 
-              <!-- AI-powered attack input -->
+            
               <div class="ai-attack-area">
                 <div class="attack-section-title">🤖 AI ATTACK</div>
                 <input
@@ -513,7 +484,7 @@
                 </button>
               </div>
 
-              <!-- Terminal output for attack logs -->
+            
               <div
                 id="attackTerminal"
                 class="terminal-wrap"
@@ -534,10 +505,7 @@
               </div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 2: Card Data Extraction
-               Steals credit card information (real or honeypot) */
-            <!-- ======================================== -->
+          
             <div class="hack-view" id="hv-cards">
               <div class="attack-section-title">CARD VAULT EXFILTRATION</div>
               <button class="attack-btn" onclick="runCardAttack()">
@@ -561,7 +529,7 @@
                 </div>
                 <div class="terminal-body" id="cardTermBody"></div>
               </div>
-              <!-- Display extracted cards -->
+            
               <div id="cardResults" style="display: none; margin-top: 10px">
                 <div class="hack-result-title">EXTRACTED CARDS</div>
                 <div style="overflow-x: auto">
@@ -581,10 +549,7 @@
               </div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 3: Loan Manipulation
-               Access, reduce, clear, or erase loan records   */
-            <!-- ======================================== -->
+            
             <div class="hack-view" id="hv-loans">
               <div class="attack-section-title">LOAN MANIPULATION</div>
               <button class="attack-btn" onclick="runLoanAccess()">
@@ -615,10 +580,7 @@
               </div>
             </div>
 
-            <!-- ======================================== -->
-            /* TAB 4: PII Extraction
-               Steals personal identifiable information       */
-            <!-- ======================================== -->
+            
             <div class="hack-view" id="hv-pii">
               <div class="attack-section-title">CLIENT PII DUMP</div>
               <button class="attack-btn" onclick="runPiiAttack()">
@@ -638,7 +600,7 @@
                 </div>
                 <div class="terminal-body" id="piiTermBody"></div>
               </div>
-              <!-- Display extracted PII records -->
+             
               <div id="piiResults" style="display: none; margin-top: 10px">
                 <div class="hack-result-title">CLIENT PII</div>
                 <div>
