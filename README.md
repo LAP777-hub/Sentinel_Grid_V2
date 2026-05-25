@@ -119,7 +119,7 @@ This prototype is for **educational, research, and defensive demonstration purpo
 
 ## 🔗 Related Links
 
-- [Ekurhuleni Billing System Incident Reference]([https://www.example.com](https://www.businessday.co.za/news/2026-05-10-how-cybercriminals-hacked-ekurhulenis-it-system-to-steal-r2bn/)) *(Add relevant reference link)*
+- [Ekurhuleni Billing System Incident Reference]([https://www.businessday.co.za/news/2026-05-10-how-cybercriminals-hacked-ekurhulenis-it-system-to-steal-r2bn/](https://www.businessday.co.za/news/2026-05-10-how-cybercriminals-hacked-ekurhulenis-it-system-to-steal-r2bn/) *(Add relevant reference link)*
 
 
 ---
