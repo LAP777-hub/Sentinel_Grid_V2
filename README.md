@@ -1,181 +1,51 @@
-# SENTINEL-GRID V2
+Here's your one-sentence intro acknowledging the Ekurhuleni billing system incident, stating the security gap, and presenting your prototype:
 
-**Team Name:** Neutral Fence  
-**Project Type:** Defensive Cybersecurity / AI Honeypot Simulation  
-**Hackathon Prototype:** Banking System Protection with Adaptive Deception
+**"While the recent Ekurhuleni billing system breach exposed how vulnerable municipal financial systems are to catastrophic data manipulation—a gap our Sentinel Grid tool directly addresses—our prototype simulates a billing system on one screen and a hacking interface on the other, demonstrating how five existing security layers feeding every log into Sentinel Grid trigger perfectly nested honeypots that convince attackers their hack succeeded while keeping all real billing data completely intact."**
 
 ---
 
-## Project Overview
+## How to Run / How to Test
 
-SENTINEL-GRID V2 is a defensive cybersecurity prototype designed to demonstrate how an adaptive honeypot and deception system can protect a simulated banking environment from AI-assisted cyberattacks.
+1. **Click the prototype link:** [https://heckerthon.netlify.app/](https://heckerthon.netlify.app/)
 
-The project contains three connected prototypes:
+2. **Access the Billing System (Admin Panel):**
+   - **Acceptable usernames:** `SiyaB`, `Lucky`, `Oara`
+   - **Password (all users):** `sasingenje@25`
 
-1. **Banking System Prototype**  
-   A simulated banking admin system containing fake banking data, including customers, accounts, credit card records, transactions, and loan balances.
+3. **Activate Sentinel Grid (Full Protection Mode - No Breach Possible):**
+   - Use the same credentials above, then enter any of these SG codes:
+     - `SG-V2-ORION-7194!`
+     - `SG-V2-NOVA-4826!`
+     - `SG-V2-VAULT-9307!`
+   - **DUO Code:** `482901`
 
-2. **SENTINEL-GRID Security Module**  
-   An insertable and removable security layer that can be activated by administrators. When active, it redirects attackers into fake banking honeypots instead of allowing them to reach the real simulated banking dataset.
-
-3. **Simulated Hacker Testing Prototype**  
-   A safe local testing panel used to demonstrate two attack scenarios:
-   - Attempting to steal credit card information.
-   - Attempting to erase or manipulate a client loan balance.
-
-This project is for educational, research, and defensive demonstration purposes only.
+> ⚠️ **Note:** Only these credentials work. Key test case已验证: Hacker attempts to manipulate existing client bills while SG is active. Tester may explore all features.
 
 ---
 
-## Problem Statement
+## Dev Team
 
-Modern cyberattacks can move faster than human defenders can respond. In a banking environment, attackers may attempt to steal credit card information, manipulate loan records, or access sensitive financial data before analysts have enough time to react.
-
-Traditional security systems often detect threats after damage has already started. SENTINEL-GRID V2 demonstrates a different approach: instead of only blocking the attacker, it redirects the attacker into a fake environment, feeds them believable simulated data, logs the activity, alerts defenders, and buys time for response.
-
----
-
-## Proposed Solution
-
-SENTINEL-GRID V2 works as an adaptive deception layer for the banking prototype.
-
-When SENTINEL-GRID is inactive, the simulated hacker can reach the real simulated banking dataset.
-
-When SENTINEL-GRID is inserted and activated, the same attack attempts are redirected into honeypots:
-
-- Credit card theft attempts are redirected to a **Fake Card Vault**.
-- Loan balance manipulation attempts are redirected to a **Fake Loan Core System**.
-
-The attacker believes the attack succeeded, but the real simulated banking data remains safe.
+| Name | Role | GitHub Profile |
+|------|------|----------------|
+| Siyabonga José Ndzobondzobo | Prototype Planning and overview design & HTML | [github.com/siyabonga-jose](https://github.com/siyajndzobs) |
+| Lucky Pinga | Architecture Designing & JavaScript | [github.com/luckypinga](https://github.com/luckypinga) |
+| Oarabetse Morara | Research Lead & CSS | [github.com/oarabetse-morara](https://github.com/oarabetse-morara) |
 
 ---
 
-## Main Features
+## Tech Stack
 
-### Banking System Prototype
-
-- Bank admin dashboard
-- 150 simulated banking clients
-- 37 simulated clients with loans
-- Simulated credit card records
-- Simulated loan records
-- Simulated transactions
-- Security module status page
-- Cybersecurity team dashboard
-
-### SENTINEL-GRID Security Module
-
-- Insertable and removable from the banking system
-- Activation and deactivation controls
-- Two-out-of-three admin activation logic
-- Hidden backend-based activation code verification
-- Honeypot grid
-- Live threat feed
-- Threat intelligence logs
-- Firewall/isolation simulation
-- Time-bought tracking
-- Recommended response actions
-
-### Simulated Hacker Prototype
-
-- Safe local simulation only
-- Test Case 1: Attempt to steal credit card information
-- Test Case 2: Attempt to erase a loan balance
-- Displays different results depending on SENTINEL-GRID status
+| Tool | Purpose |
+|------|---------|
+| VS Code | Code editor |
+| GitHub | Version control & collaboration |
+| Figma | Prototype & UI design |
+| HTML | Structure |
+| CSS | Styling |
+| JavaScript | Interactivity & logic |
 
 ---
 
-## Demo Test Cases
+## Conclusions & Lessons Learned
 
-The project demonstrates four required hackathon tests.
-
-### Test 1: Credit Card Theft Without SENTINEL-GRID
-
-SENTINEL-GRID is not inserted or inactive.
-
-Expected result:
-
-- The simulated hacker successfully accesses real simulated card records.
-- The banking prototype shows that real simulated data was exposed.
-
-### Test 2: Loan Balance Erasure Without SENTINEL-GRID
-
-SENTINEL-GRID is not inserted or inactive.
-
-Expected result:
-
-- The simulated hacker successfully changes or erases a real simulated loan balance.
-- The banking prototype shows that the real simulated loan ledger was modified.
-
-### Test 3: Credit Card Theft With SENTINEL-GRID Active
-
-SENTINEL-GRID is inserted and activated.
-
-Expected result:
-
-- The simulated hacker receives fake honeypot card data.
-- The real simulated card records remain safe.
-- SENTINEL-GRID logs the attack.
-- The cybersecurity team dashboard receives an alert.
-
-### Test 4: Loan Balance Erasure With SENTINEL-GRID Active
-
-SENTINEL-GRID is inserted and activated.
-
-Expected result:
-
-- The simulated hacker modifies only fake honeypot loan data.
-- The real simulated loan balance remains unchanged.
-- SENTINEL-GRID logs the attack.
-- The cybersecurity team dashboard receives an alert.
-
----
-
-## Project Structure
-
-```text
-Sentinel_Grid_V2/
-│
-├── README.md
-├── LICENSE
-├── .gitignore
-├── requirements.txt
-├── app.py
-├── HACKER_TEST_CASES.md
-│
-├── data/
-│   ├── bank_real_data.json
-│   ├── honeypot_fake_data.json
-│   ├── sentinel_logs.json
-│   ├── cyber_alerts.json
-│   ├── system_state.json
-│   └── secure_codes.json
-│
-├── templates/
-│   ├── base.html
-│   ├── bank_login.html
-│   ├── bank_dashboard.html
-│   ├── customers.html
-│   ├── credit_cards.html
-│   ├── loans.html
-│   ├── transactions.html
-│   ├── security_module.html
-│   ├── sentinel_dashboard.html
-│   ├── cyber_team_dashboard.html
-│   ├── hacker_panel.html
-│   ├── test_results.html
-│   └── docs.html
-│
-├── static/
-│   ├── style.css
-│   ├── app.js
-│   └── images/
-│
-├── docs/
-│   ├── project_overview.md
-│   ├── system_architecture.md
-│   ├── test_plan.md
-│   └── future_hardware_integration.md
-│
-└── screenshots/
-    └── .gitkeep
+**Security on the solution first, then the problem.** The Ekurhuleni incident taught us that reactive security fails when attackers are already inside. Sentinel Grid flips the model: deception buys time, logs everything, and preserves data integrity even while attackers believe they've won. Our biggest lesson is that elegant security architecture must anticipate breach—and design for the moment after the perimeter falls, not before.
