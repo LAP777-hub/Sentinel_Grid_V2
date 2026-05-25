@@ -18,7 +18,7 @@
      - `SG-V2-VAULT-9307!`
    - **DUO Code:** `482901`
 
-> ⚠️ **Note:** Only these credentials work. Key test case已验证: Hacker attempts to manipulate existing client bills while SG is active. Tester may explore all features.
+> ⚠️ **Note:** Only these credentials work. Key test case 01: Hacker attempts to manipulate existing client bills while SG is active. Tester may explore all features.
 
 ---
 
