@@ -111,10 +111,6 @@ Our biggest lesson is that elegant security architecture must anticipate breach�
 
 ---
 
-## 📁 Repository Structure
-
----
-
 ## ⚠️ Important Note
 
 This prototype is for **educational, research, and defensive demonstration purposes only**. No real municipal data is used. All billing data, client records, and PII are simulated using JavaScript-generated fake data.
