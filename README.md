@@ -25,7 +25,7 @@ SG Code 3: SG-V2-VAULT-9307!
 
 DUO Code: 482901
 
-⚠️ Note: Only these credentials work. Key test case: Hacker attempts to manipulate existing client bills while SG is active (either auto or manual mode). Tester may explore all features.
+⚠️ Note: Only these credentials work. Key test case: Hacker attempts to manipulate existing client bills while is off anmd after all layers or some are down attack is a succes and when  SG is active (either auto or manual mode) all hacker gets a interface of the bank that looks so real and the data and bills manipulateable they can reduce clear and even rease but that is just fake dada in nested honeypots all municicplality real data bills stay intact. Tester may explore all features.
 
 
 
