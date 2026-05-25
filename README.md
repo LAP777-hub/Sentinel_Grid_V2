@@ -1,26 +1,35 @@
 
 **"While the recent Ekurhuleni billing system breach exposed how vulnerable municipal financial systems are to catastrophic data manipulation—a gap our Sentinel Grid tool directly addresses—our prototype simulates a billing system on one screen and a hacking interface on the other, demonstrating how five existing security layers feeding every log into Sentinel Grid trigger perfectly nested honeypots that convince attackers their hack succeeded while keeping all real billing data completely intact."**
 
----
+How to Run / How to Test
+Click the prototype link: https://heckerthon.netlify.app/
 
-## How to Run / How to Test
+Access the Billing System (Admin Panel):
 
-1. **Click the prototype link:** [https://heckerthon.netlify.app/](https://heckerthon.netlify.app/)
+Acceptable usernames: SiyaB, Lucky, Oara
 
-2. **Access the Billing System (Admin Panel):**
-   - **Acceptable usernames:** `SiyaB`, `Lucky`, `Oara`
-   - **Password (all users):** `sasingenje@25`
+Password (all users): sasingenje@25
 
-3. **Activate Sentinel Grid (Full Protection Mode - No Breach Possible):**
-   - Use the same credentials above, then enter any of these SG codes:
-     - `SG-V2-ORION-7194!`
-     - `SG-V2-NOVA-4826!`
-     - `SG-V2-VAULT-9307!`
-   - **DUO Code:** `482901`
+Understand Sentinel Grid Activation (Two Modes):
 
-> ⚠️ **Note:** Only these credentials work. Key test case 01: Hacker attempts to manipulate existing client bills while SG is active. Tester may explore all features.
+Mode	Trigger	What Happens
+Auto-Activation	After 5 defense layers are exhausted	SG kicks in automatically — no manual action needed. Honeypots deploy, hackers see fake data, real billing system stays intact.
+Manual Full Protection	Enter SG admin codes (see below)	Activates SG immediately without waiting for 5 layers to fail. 5 layers + SG = maximum protection. No breach possible.
+Manual Activation Codes (Full Protection - 5 Layers + SG):
 
----
+SG Code 1: SG-V2-ORION-7194!
+
+SG Code 2: SG-V2-NOVA-4826!
+
+SG Code 3: SG-V2-VAULT-9307!
+
+DUO Code: 482901
+
+⚠️ Note: Only these credentials work. Key test case: Hacker attempts to manipulate existing client bills while SG is active (either auto or manual mode). Tester may explore all features.
+
+
+
+
 
 ## Dev Team
 
