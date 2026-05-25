@@ -1,4 +1,3 @@
-Here's your one-sentence intro acknowledging the Ekurhuleni billing system incident, stating the security gap, and presenting your prototype:
 
 **"While the recent Ekurhuleni billing system breach exposed how vulnerable municipal financial systems are to catastrophic data manipulation—a gap our Sentinel Grid tool directly addresses—our prototype simulates a billing system on one screen and a hacking interface on the other, demonstrating how five existing security layers feeding every log into Sentinel Grid trigger perfectly nested honeypots that convince attackers their hack succeeded while keeping all real billing data completely intact."**
 
